@@ -1,5 +1,5 @@
 # Thadjam
-This Engineering 1 Assesment Project
+This is our Engineering 1 Assesment Project: Assessment 1 Sem1/7/Mon, 10 November 2025 [35%]
 
 Participants:
 Abdul Fofanah <dqm509@york.ac.uk>
