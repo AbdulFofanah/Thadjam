@@ -1,16 +1,29 @@
-package io.github.Thadjam;
+package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main implements ApplicationListener {
-    Texture backGroundTexture;
+    Texture backgroundTexture;
+    Texture characterTexture;
     Music music;
 
+    SpriteBatch spriteBatch;
+    FitViewport viewport;
+
     @Override
-    public void create() {
-        backgroundTexture = new Texture("background.png"); // Add in whatever our background asset is here
-        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3")); // Same here
+    public void create() { //anything that is in this method needs adding to the assets with the correct name
+        backgroundTexture = new Texture("background.png");
+        characterTexture = new Texture("character.png");
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+
+        spriteBatch = new SpriteBatch();
+        viewport = new FitViewport(8, 5);
     }
 
     @Override
