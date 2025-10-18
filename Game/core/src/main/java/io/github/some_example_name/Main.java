@@ -2,9 +2,11 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -18,6 +20,8 @@ public class Main implements ApplicationListener { //anything under this will de
     SpriteBatch spriteBatch;
     FitViewport viewport;
 
+    Sprite characterSprite;
+
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
         backgroundTexture = new Texture("background.png");
@@ -27,6 +31,9 @@ public class Main implements ApplicationListener { //anything under this will de
         spriteBatch = new SpriteBatch();
         // tile amounts, each 1 in width or height is equal to 100x100 pixels
         viewport = new FitViewport(8, 8);
+
+        characterSprite = new Sprite(characterTexture);
+        characterSprite.setSize(1, 1);
     }
 
     @Override
@@ -47,20 +54,35 @@ public class Main implements ApplicationListener { //anything under this will de
     }
 
     private void input() {
+        float speed = 4f;
+        float delta = Gdx.graphics.getDeltaTime();
 
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            characterSprite.translateX(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            characterSprite.translateX(-speed * delta);
+        }  else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            characterSprite.translateY(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            characterSprite.translateY(-speed * delta);
+        }
     }
 
     private void logic() {
 
     }
 
-    private void draw() {
+    private void draw() {//anything in this method will be drawn onto the screen as long as its between the begin and end
         ScreenUtils.clear(Color.BLACK);
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
 
-        //spriteBatch.draw(characterTexture, 0, 0, 1, 1); draws the character at position 0,0 with a tile size of 1,1 (it resizes the image to be the tile sizes
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+
+        //spriteBatch.draw(backGroundTexture, 0, 0, worldWidth, worldHeight); //make sure the background is always at the top as it is layered
+        //characterSprite.draw(spriteBatch);
 
         spriteBatch.end();
     }
