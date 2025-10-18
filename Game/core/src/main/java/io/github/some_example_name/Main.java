@@ -4,9 +4,13 @@ import com.badlogic.gdx.ApplicationListener;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main implements ApplicationListener {
+    Texture backGroundTexture;
+    Music music;
+
     @Override
     public void create() {
-        // Prepare your application here.
+        backgroundTexture = new Texture("background.png"); // Add in whatever our background asset is here
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3")); // Same here
     }
 
     @Override
