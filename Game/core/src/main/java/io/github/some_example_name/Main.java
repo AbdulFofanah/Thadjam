@@ -124,7 +124,6 @@ public class Main implements ApplicationListener { //anything under this will de
         tryMove(moveX, 0);
         tryMove(0, moveY);
     }
-
     private void tryMove(float moveX, float moveY) {
         if (moveX == 0 && moveY == 0) return;
 
