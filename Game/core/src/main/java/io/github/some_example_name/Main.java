@@ -61,26 +61,22 @@ public class Main implements ApplicationListener { //anything under this will de
 
     private void input() {
         float speed = 6f;
+        float playerX = 0;
+        float playerY = 0;
         float delta = Gdx.graphics.getDeltaTime();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            characterSprite.translateX(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            characterSprite.translateX(-speed * delta);
-        }  else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            characterSprite.translateY(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            characterSprite.translateY(-speed * delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            characterSprite.translateX(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            characterSprite.translateX(-speed * delta);
-        }  else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            characterSprite.translateY(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            characterSprite.translateY(-speed * delta);
-        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) playerY += 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) playerX -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) playerY -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) playerX += 1;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) playerY += 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) playerX -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) playerY -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) playerX += 1;
+
+        characterSprite.translateX(playerX * speed * delta);
+        characterSprite.translateY(playerY * speed * delta);
     }
 
     private void logic() {
