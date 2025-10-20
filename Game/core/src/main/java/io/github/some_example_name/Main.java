@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import java.awt.*;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main implements ApplicationListener { //anything under this will declare all the variables
-    Texture backgroundTexture;
+    Texture wallTexture;
     Texture characterTexture;
     Music music;
 
@@ -24,13 +28,13 @@ public class Main implements ApplicationListener { //anything under this will de
 
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
-        backgroundTexture = new Texture("background.png");
+        wallTexture = new Texture("brick_brown_0.png");
         characterTexture = new Texture("character.png");
-        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        //music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
         spriteBatch = new SpriteBatch();
         // tile amounts, each 1 in width or height is equal to 100x100 pixels
-        viewport = new FitViewport(8, 8);
+        viewport = new FitViewport(20, 15);
 
         characterSprite = new Sprite(characterTexture);
         characterSprite.setSize(1, 1);
@@ -54,7 +58,7 @@ public class Main implements ApplicationListener { //anything under this will de
     }
 
     private void input() {
-        float speed = 4f;
+        float speed = 6f;
         float delta = Gdx.graphics.getDeltaTime();
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -69,11 +73,18 @@ public class Main implements ApplicationListener { //anything under this will de
     }
 
     private void logic() {
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
 
+        float characterWidth = characterSprite.getWidth();
+        float characterHeight = characterSprite.getHeight();
+
+        characterSprite.setX(MathUtils.clamp(characterSprite.getX(), 0, worldWidth - characterWidth));
+        characterSprite.setY(MathUtils.clamp(characterSprite.getY(), 0, worldHeight - characterHeight));
     }
 
-    private void draw() {//anything in this method will be drawn onto the screen as long as its between the begin and end
-        ScreenUtils.clear(Color.BLACK);
+    private void draw() {//anything in this method will be drawn onto the s creen as long as its between the begin and end
+        ScreenUtils.clear(Color.WHITE);
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
@@ -81,8 +92,13 @@ public class Main implements ApplicationListener { //anything under this will de
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
-        //spriteBatch.draw(backGroundTexture, 0, 0, worldWidth, worldHeight); //make sure the background is always at the top as it is layered
-        //characterSprite.draw(spriteBatch);
+        spriteBatch.draw(wallTexture, 1, 0, 1, 1);//make sure the background is always at the top as it is layered
+        spriteBatch.draw(wallTexture, 1, 1, 1, 1);
+        spriteBatch.draw(wallTexture, 1, 2, 1, 1);
+        spriteBatch.draw(wallTexture, 1, 3, 1, 1);
+        spriteBatch.draw(wallTexture, 1, 4, 1, 1);
+
+        characterSprite.draw(spriteBatch);
 
         spriteBatch.end();
     }
