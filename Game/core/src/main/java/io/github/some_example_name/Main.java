@@ -29,7 +29,7 @@ public class Main implements ApplicationListener { //anything under this will de
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
         wallTexture = new Texture("brick_brown_0.png");
-        characterTexture = new Texture("character.png");
+        characterTexture = new Texture("Run__000.png");
         //music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
         spriteBatch = new SpriteBatch();
@@ -84,7 +84,7 @@ public class Main implements ApplicationListener { //anything under this will de
     }
 
     private void draw() {//anything in this method will be drawn onto the s creen as long as its between the begin and end
-        ScreenUtils.clear(Color.WHITE);
+        ScreenUtils.clear(Color.BLACK);
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
