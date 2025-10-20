@@ -19,6 +19,7 @@ import java.awt.*;
 public class Main implements ApplicationListener { //anything under this will declare all the variables
     Texture wallTexture;
     Texture characterTexture;
+    Texture floorTexture;
     Music music;
 
     SpriteBatch spriteBatch;
@@ -30,14 +31,16 @@ public class Main implements ApplicationListener { //anything under this will de
     public void create() { //anything that is in this method needs adding to the assets with the correct name
         wallTexture = new Texture("brick_brown_0.png");
         characterTexture = new Texture("Run__000.png");
+        floorTexture = new Texture("floor_sand_rock_0.png");
         //music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
         spriteBatch = new SpriteBatch();
         // tile amounts, each 1 in width or height is equal to 100x100 pixels
-        viewport = new FitViewport(20, 15);
+        viewport = new FitViewport(20, 20);
 
         characterSprite = new Sprite(characterTexture);
         characterSprite.setSize(1, 1);
+        characterSprite.setPosition(1, 1);
     }
 
     @Override
@@ -70,6 +73,15 @@ public class Main implements ApplicationListener { //anything under this will de
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             characterSprite.translateY(-speed * delta);
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            characterSprite.translateX(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            characterSprite.translateX(-speed * delta);
+        }  else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            characterSprite.translateY(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            characterSprite.translateY(-speed * delta);
+        }
     }
 
     private void logic() {
@@ -92,11 +104,8 @@ public class Main implements ApplicationListener { //anything under this will de
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
-        spriteBatch.draw(wallTexture, 1, 0, 1, 1);//make sure the background is always at the top as it is layered
-        spriteBatch.draw(wallTexture, 1, 1, 1, 1);
-        spriteBatch.draw(wallTexture, 1, 2, 1, 1);
-        spriteBatch.draw(wallTexture, 1, 3, 1, 1);
-        spriteBatch.draw(wallTexture, 1, 4, 1, 1);
+        spriteBatch.draw(wallTexture, 0, 0, 1, 1);//make sure the background is always at the top as it is layered
+        spriteBatch.draw(floorTexture, 1, 1, 1, 1);
 
         characterSprite.draw(spriteBatch);
 
