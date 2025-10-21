@@ -162,9 +162,6 @@ public class Main implements ApplicationListener { //anything under this will de
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
-        //spriteBatch.draw(wallTexture, 0, 0, 1, 1);//make sure the background is always at the top as it is layered
-        //spriteBatch.draw(floorTexture, 1, 1, 1, 1);
-
         //draw floors and walls based on the map e.g. loops through the rows and columns of the map and draws the floors if there is a '.' and a wall if there is a '.'
         for (int row = 0; row < levelMap.length; row++) {
             String line = levelMap[levelMap.length - 1 - row];
