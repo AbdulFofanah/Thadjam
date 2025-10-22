@@ -1,15 +1,34 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class TutorialScreen implements Screen {
 
+    private Stage stage;
+    private MenuAssets assets;
     private final Main game;
 
     public TutorialScreen(Main game) {
         this.game = game;
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        assets = new MenuAssets();
+
+        ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(assets.tutorialButton));
+        tutorialButton.setPosition(
+            Gdx.graphics.getWidth() / 2f - tutorialButton.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 2f + 250
+        );
+
+        stage.addActor(tutorialButton);
     }
 
     @Override
@@ -20,11 +39,14 @@ public class TutorialScreen implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.WHITE);
+
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -44,6 +66,7 @@ public class TutorialScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        assets.dispose();
     }
 }
