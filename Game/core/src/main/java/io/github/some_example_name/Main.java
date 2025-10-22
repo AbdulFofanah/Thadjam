@@ -1,5 +1,6 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -7,14 +8,18 @@ import com.badlogic.gdx.graphics.GL20;
 
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main implements ApplicationListener { //anything under this will declare all the variables
+public class Main extends Game { //anything under this will declare all the variables
+
     private GameScreen game;
+    private MenuScreen menu;
 
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
+
         game = new GameScreen();
 
-    }
+    }asdasd
+
     @Override
     public void resize(int width, int height) {
         // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.
