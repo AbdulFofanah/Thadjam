@@ -1,35 +1,21 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.GL20;
 
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main implements ApplicationListener { //anything under this will declare all the variables
-    Texture wallTexture;
-    Texture characterTexture;
-    Texture floorTexture;
-    Texture enemyTexture_1;
+    private GameScreen game;
+
+    Texture characterTexture;;
     Music music;
 
     SpriteBatch spriteBatch;
     FitViewport viewport;
 
     Sprite characterSprite;
-
-    Array<Rectangle> wallRects;
-    Array<Rectangle> enemyRects;
 
     //the map, 'W' means a wall, '.' means a floor
     String[] levelMap = {
@@ -57,6 +43,8 @@ public class Main implements ApplicationListener { //anything under this will de
 
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
+        game = new GameScreen();
+
         wallTexture = new Texture("brick_brown_0.png");
         characterTexture = new Texture("Run__000.png");
         floorTexture = new Texture("floor_sand_rock_0.png");
@@ -70,10 +58,6 @@ public class Main implements ApplicationListener { //anything under this will de
         characterSprite = new Sprite(characterTexture);
         characterSprite.setSize(0.8f, 0.8f);
         characterSprite.setPosition(1, 1);
-
-        //the array will store all the wall pieces for this map
-        wallRects = new Array<>();
-        enemyRects = new Array<>();
 
         //loops through each row, loops through each line in the map, if it finds the 'W' then it'll make it a collision box e.g.the character wont be able to move through it
         for (int row = 0; row < levelMap.length; row++) {
@@ -92,12 +76,17 @@ public class Main implements ApplicationListener { //anything under this will de
     public void resize(int width, int height) {
         // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.
         // In that case, we don't resize anything, and wait for the window to be a normal size before updating.
+        game.resize(width, height);
+
         if(width <= 0 || height <= 0) return;
         viewport.update(width, height, true);
     }
 
     @Override
     public void render() {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        game.render();
+
         input();
         logic();
         draw();
@@ -214,5 +203,6 @@ public class Main implements ApplicationListener { //anything under this will de
     @Override
     public void dispose() {
         // Destroy application's resources here.
+        game.dispose();
     }
 }
