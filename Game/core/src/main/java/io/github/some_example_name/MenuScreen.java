@@ -20,12 +20,10 @@ public class MenuScreen implements Screen {
 
     private Stage stage;
     private MenuAssets assets;
-    private SpriteBatch batch;
-    private Main main;
+    private final Main game;
 
-    public MenuScreen(Main main) {
-        this.main = main;
-        batch = new SpriteBatch();
+    public MenuScreen(Main game) {
+        this.game = game;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -37,8 +35,9 @@ public class MenuScreen implements Screen {
             Gdx.graphics.getHeight() / 2f + 50);
 
         startButton.addListener(new ClickListener() {
-           public void clicked(InputEvent event, float x, float y) {
-               main.setScreen(new GameScreen());
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               game.setScreen(new GameScreen(game));
            }
         });
 
@@ -86,7 +85,6 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batch.dispose();
         assets.dispose();
     }
 }

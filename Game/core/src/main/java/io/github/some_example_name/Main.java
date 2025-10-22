@@ -21,7 +21,7 @@ public class Main extends Game { //anything under this will declare all the vari
         SpriteDrawing = new SpriteBatch();
         TextFont = new BitmapFont();
         //the main instance is passed through to the game screen
-        this.setScreen(new GameScreen(this)); //When the menu screen is implemented, use menu screen here
+        this.setScreen(new MenuScreen(this)); //When the menu screen is implemented, use menu screen here
     }
 
     @Override
