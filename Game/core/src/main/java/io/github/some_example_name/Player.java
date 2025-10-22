@@ -12,62 +12,45 @@ import com.badlogic.gdx.math.Rectangle;
 public class Player {
     private Sprite sprite;
     private float speed = 8f;
-    private Array<Rectangle> enemyRects;
+    private float moveX = 0f;
+    private float moveY = 0f;
 
     public Player (Texture texture, Array<Rectangle> enemyRects) {
         this.sprite = new Sprite(texture);
         this.sprite.setSize(0.8f, 0.8f);
-        this.sprite.setPosition(1, 1);
-        this.enemyRects = enemyRects;
     }
 
-    public void handleInput(float worldWidth, float worldHeight, Array<Rectangle> wallRects) {
-        float delta = Gdx.graphics.getDeltaTime();
-        float moveX = 0;
-        float moveY = 0;
-
-        //updates the moving variables based on the input for the character
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            moveX += speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            moveX -= speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            moveY += speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            moveY -= speed * delta;
-        }
-
-        tryMove(moveX, 0, wallRects);
-        tryMove(0, moveY, wallRects);
+    public void setMovement(float dx, float dy) {
+        moveX = dx;
+        moveY = dy;
     }
-    private void tryMove(float moveX, float moveY, Array<Rectangle> wallRects) {
+
+    public void update(float frametime, Array<Rectangle> wallRects, Array<Rectangle> enemyRects) {
+        tryMove(moveX, 0, wallRects, enemyRects); // Try moving horizontally
+        tryMove(0, moveY, wallRects, enemyRects); // Try moving vertically
+        //Reset movement by frame
+        moveX = 0;
+        moveY = 0;
+    }
+
+    private void tryMove(float moveX, float moveY, Array<Rectangle> wallRects, Array<Rectangle> enemyRects) {
         if (moveX == 0 && moveY == 0) return;
 
-        //generates a rectangle for the next square that the character could possibly move into (N, S, E, W from the sprite)
-        Rectangle next = new Rectangle(sprite.getX() + moveX, sprite.getY() + moveY, sprite.getWidth(), sprite.getHeight());
+        Rectangle AllowedArea = sprite.getBoundingRectangle();
+        Rectangle NextArea = new Rectangle(AllowedArea.x + moveX, AllowedArea.y + moveY,
+                                              AllowedArea.width, AllowedArea.height);
 
-        //stops the movement cos the wall has been hit e.g.if the rectangles overlap
+        // Collision detection
         for (Rectangle wall : wallRects) {
-            if (next.overlaps(wall)) {
-                return;
+            if (NextArea.overlaps(wall)) {
+                return; // collided
             }
         }
 
-        Rectangle futureX = new Rectangle(sprite.getX() + moveX, sprite.getY(), sprite.getWidth(), sprite.getHeight());
-        Rectangle futureY = new Rectangle(sprite.getX(), sprite.getY() + moveY, sprite.getWidth(), sprite.getHeight());
-
+        // Collision detection
         for (Rectangle enemy : enemyRects) {
-            if (futureX.overlaps(enemy)) {
-                return;
-            }
-        }
-
-        for (Rectangle enemy : enemyRects) {
-            if (futureY.overlaps(enemy)) {
-                return;
+            if (NextArea.overlaps(enemy)) {
+                return; // collided
             }
         }
 
@@ -75,7 +58,25 @@ public class Player {
         sprite.translate(moveX, moveY);
     }
 
-    public void draw(SpriteBatch batch) {
-        sprite.draw(batch);
+    public void draw(SpriteBatch SpriteDrawing) {
+        sprite.draw(SpriteDrawing);
+    }
+
+    // Speed Getter
+    public float getSpeed() {
+        return speed;
+    }
+
+    // Pos Setter
+    public void setPosition(float x, float y) {
+        sprite.setPosition(x, y);
+    }
+
+    // current pos
+    public Rectangle getBoundingRectangle() {
+        return sprite.getBoundingRectangle();
     }
 }
+
+
+
