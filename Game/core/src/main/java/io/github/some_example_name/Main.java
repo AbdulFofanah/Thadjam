@@ -29,6 +29,7 @@ public class Main implements ApplicationListener { //anything under this will de
     Sprite characterSprite;
 
     Array<Rectangle> wallRects;
+    Array<Rectangle> enemyRects;
 
     //the map, 'W' means a wall, '.' means a floor
     String[] levelMap = {
@@ -72,6 +73,7 @@ public class Main implements ApplicationListener { //anything under this will de
 
         //the array will store all the wall pieces for this map
         wallRects = new Array<>();
+        enemyRects = new Array<>();
 
         //loops through each row, loops through each line in the map, if it finds the 'W' then it'll make it a collision box e.g.the character wont be able to move through it
         for (int row = 0; row < levelMap.length; row++) {
