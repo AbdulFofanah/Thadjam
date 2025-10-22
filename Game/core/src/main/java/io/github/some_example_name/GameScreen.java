@@ -22,7 +22,7 @@ public class GameScreen implements Screen {
     public GameScreen(Main game) {
         this.game = game;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(20,20, camera);
+        viewport = new FitViewport(60,40, camera);
         assets = new Assets();
         level = new LevelMap(assets);
         player = new Player(assets.characterTexture, level.getEnemyRects());
