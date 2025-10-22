@@ -20,6 +20,7 @@ public class Main implements ApplicationListener { //anything under this will de
     Texture wallTexture;
     Texture characterTexture;
     Texture floorTexture;
+    Texture enemyTexture_1;
     Music music;
 
     SpriteBatch spriteBatch;
@@ -58,6 +59,7 @@ public class Main implements ApplicationListener { //anything under this will de
         wallTexture = new Texture("brick_brown_0.png");
         characterTexture = new Texture("Run__000.png");
         floorTexture = new Texture("floor_sand_rock_0.png");
+        enemyTexture_1 = new Texture("giant_spore.png");
         //music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
         spriteBatch = new SpriteBatch();
