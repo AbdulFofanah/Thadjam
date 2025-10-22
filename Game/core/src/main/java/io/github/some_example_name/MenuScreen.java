@@ -31,8 +31,9 @@ public class MenuScreen implements Screen {
 
         // Create Start Button
         ImageButton startButton = new ImageButton(new TextureRegionDrawable(assets.startButton));
-        startButton.setPosition(Gdx.graphics.getWidth() / 2f - startButton.getWidth() / 2f,
-            Gdx.graphics.getHeight() / 2f + 50);
+        startButton.setPosition(
+            Gdx.graphics.getWidth() / 2f - startButton.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 2f + 100);
 
         startButton.addListener(new ClickListener() {
             @Override
@@ -43,10 +44,32 @@ public class MenuScreen implements Screen {
 
         stage.addActor(startButton);
 
+        // Tutorial Button
+        ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(assets.tutorialButton));
+        tutorialButton.setPosition(
+            Gdx.graphics.getWidth() / 2f - tutorialButton.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 2f
+        );
+        tutorialButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new TutorialScreen(game));
+            }
+        });
+        stage.addActor(tutorialButton);
+
         // Create Settings Button
         ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(assets.settingsButton));
-        settingsButton.setPosition(Gdx.graphics.getWidth() / 2f - settingsButton.getWidth() / 2f,
-            Gdx.graphics.getHeight() / 2f - 50);
+        settingsButton.setPosition(
+            Gdx.graphics.getWidth() / 2f - settingsButton.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 2f - 100);
+
+        settingsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new SettingsScreen(game));
+            }
+        });
 
         stage.addActor(settingsButton);
     }
