@@ -6,12 +6,13 @@ import com.badlogic.gdx.Gdx;
 
 public class MenuAssets {
 
-    public Texture startButton, settingsButton, tutorialButton,background;
+    public Texture startButton, settingsButton, tutorialButton, backButton, background;
 
     public MenuAssets() {
         startButton = new Texture("start_button.png");
         settingsButton = new Texture("settings_button.png");
         tutorialButton = new Texture("tutorial_button.png");
+        backButton = new Texture("back_button.png");
         //background = new Texture("menuBackground.png");
     }
 
@@ -19,6 +20,7 @@ public class MenuAssets {
         startButton.dispose();
         settingsButton.dispose();
         tutorialButton.dispose();
+        backButton.dispose();
         //background.dispose();
     }
 

@@ -2,13 +2,14 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
 public class GameScreen implements Screen {
@@ -18,9 +19,12 @@ public class GameScreen implements Screen {
     private Assets assets;
     private LevelMap level;
     private Player player;
+    private Stage stage;
 
     public GameScreen(Main game) {
         this.game = game;
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera();
         viewport = new FitViewport(60,40, camera);
         assets = new Assets();
@@ -31,6 +35,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+
     }
 
     @Override

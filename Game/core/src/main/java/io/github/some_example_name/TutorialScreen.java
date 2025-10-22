@@ -2,8 +2,10 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
@@ -29,6 +31,21 @@ public class TutorialScreen implements Screen {
         );
 
         stage.addActor(tutorialButton);
+
+        // Create Settings Button
+        ImageButton backButton = new ImageButton(new TextureRegionDrawable(assets.backButton));
+        backButton.setPosition(
+            100,
+            100);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+
+        stage.addActor(backButton);
     }
 
     @Override
