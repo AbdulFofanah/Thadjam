@@ -143,8 +143,18 @@ public class Main implements ApplicationListener { //anything under this will de
                 return;
             }
         }
+
+        Rectangle futureX = new Rectangle(characterSprite.getX() + moveX, characterSprite.getY(), characterSprite.getWidth(), characterSprite.getHeight());
+        Rectangle futureY = new Rectangle(characterSprite.getX(), characterSprite.getY() + moveY, characterSprite.getWidth(), characterSprite.getHeight());
+
         for (Rectangle enemy : enemyRects) {
-            if (next.overlaps(enemy)) {
+            if (futureX.overlaps(enemy)) {
+                return;
+            }
+        }
+
+        for (Rectangle enemy : enemyRects) {
+            if (futureY.overlaps(enemy)) {
                 return;
             }
         }
