@@ -9,8 +9,8 @@ public class MenuAssets {
     public Texture startButton, settingsButton, background;
 
     public MenuAssets() {
-        startButton = new Texture("startButton.png");
-        settingsButton = new Texture("settingsButton.png");
+        startButton = new Texture("start_button.png");
+        settingsButton = new Texture("settings_button.png");
         //background = new Texture("menuBackground.png");
     }
 
