@@ -1,6 +1,7 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
@@ -9,185 +10,22 @@ import com.badlogic.gdx.graphics.GL20;
 public class Main implements ApplicationListener { //anything under this will declare all the variables
     private GameScreen game;
 
-    Texture characterTexture;;
-    Music music;
-
-    SpriteBatch spriteBatch;
-    FitViewport viewport;
-
-    Sprite characterSprite;
-
-    //the map, 'W' means a wall, '.' means a floor
-    String[] levelMap = {
-        "WWWWWWWWWWWWWWWWWWWW",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "W....S.............W",
-        "W..................W",
-        "W..................W",
-        "W..................W",
-        "WWWWWWWWWWWWWWWWWWWW"
-    };
-
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
         game = new GameScreen();
 
-        wallTexture = new Texture("brick_brown_0.png");
-        characterTexture = new Texture("Run__000.png");
-        floorTexture = new Texture("floor_sand_rock_0.png");
-        enemyTexture_1 = new Texture("giant_spore.png");
-        //music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-
-        spriteBatch = new SpriteBatch();
-        // tile amounts, each 1 in width or height is equal to 100x100 pixels
-        viewport = new FitViewport(20, 20);
-
-        characterSprite = new Sprite(characterTexture);
-        characterSprite.setSize(0.8f, 0.8f);
-        characterSprite.setPosition(1, 1);
-
-        //loops through each row, loops through each line in the map, if it finds the 'W' then it'll make it a collision box e.g.the character wont be able to move through it
-        for (int row = 0; row < levelMap.length; row++) {
-            String line = levelMap[levelMap.length - 1 - row]; // flip Y axis
-            for (int col = 0; col < line.length(); col++) {
-                if (line.charAt(col) == 'W') {
-                    wallRects.add(new Rectangle(col, row, 1, 1));
-                }else if (line.charAt(col) == 'S'){
-                    enemyRects.add(new Rectangle(col, row, 1, 1));
-                }
-            }
-        }
     }
-
     @Override
     public void resize(int width, int height) {
         // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.
         // In that case, we don't resize anything, and wait for the window to be a normal size before updating.
         game.resize(width, height);
-
-        if(width <= 0 || height <= 0) return;
-        viewport.update(width, height, true);
     }
 
     @Override
     public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.render();
-
-        input();
-        logic();
-        draw();
-    }
-
-    private void input() {
-        float speed = 8f;
-        float delta = Gdx.graphics.getDeltaTime();
-
-        //will check whether the character is moving left or right
-        float moveX = 0;
-        float moveY = 0;
-
-        //updates the moving variables based on the input for the character
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            moveX += speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            moveX -= speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            moveY += speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            moveY -= speed * delta;
-        }
-
-        //the method will check whether moving will cause a collision into a wall or not
-        tryMove(moveX, 0);
-        tryMove(0, moveY);
-    }
-
-    //attempting to move the character e.g.checks for collisions etc
-    private void tryMove(float moveX, float moveY) {
-        if (moveX == 0 && moveY == 0) return;
-
-        //generates a rectangle for the next square that the character could possibly move into (N, S, E, W from the sprite)
-        Rectangle next = new Rectangle(characterSprite.getX() + moveX, characterSprite.getY() + moveY, characterSprite.getWidth(), characterSprite.getHeight());
-
-        //stops the movement cos the wall has been hit e.g.if the rectangles overlap
-        for (Rectangle wall : wallRects) {
-            if (next.overlaps(wall)) {
-                return;
-            }
-        }
-
-        Rectangle futureX = new Rectangle(characterSprite.getX() + moveX, characterSprite.getY(), characterSprite.getWidth(), characterSprite.getHeight());
-        Rectangle futureY = new Rectangle(characterSprite.getX(), characterSprite.getY() + moveY, characterSprite.getWidth(), characterSprite.getHeight());
-
-        for (Rectangle enemy : enemyRects) {
-            if (futureX.overlaps(enemy)) {
-                return;
-            }
-        }
-
-        for (Rectangle enemy : enemyRects) {
-            if (futureY.overlaps(enemy)) {
-                return;
-            }
-        }
-
-        //not colliding, keeping character moving
-        characterSprite.translate(moveX, moveY);
-    }
-
-    private void logic() {
-        float worldWidth = viewport.getWorldWidth();
-        float worldHeight = viewport.getWorldHeight();
-
-        float characterWidth = characterSprite.getWidth();
-        float characterHeight = characterSprite.getHeight();
-
-        characterSprite.setX(MathUtils.clamp(characterSprite.getX(), 0, worldWidth - characterWidth));
-        characterSprite.setY(MathUtils.clamp(characterSprite.getY(), 0, worldHeight - characterHeight));
-    }
-
-    private void draw() {//anything in this method will be drawn onto the s creen as long as its between the begin and end
-        ScreenUtils.clear(Color.BLACK);
-        viewport.apply();
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-        spriteBatch.begin();
-
-        float worldWidth = viewport.getWorldWidth();
-        float worldHeight = viewport.getWorldHeight();
-
-        //draw floors and walls based on the map e.g. loops through the rows and columns of the map and draws the floors if there is a '.' and a wall if there is a '.'
-        for (int row = 0; row < levelMap.length; row++) {
-            String line = levelMap[levelMap.length - 1 - row];
-            for (int col = 0; col < line.length(); col++) {
-                spriteBatch.draw(floorTexture, col, row, 1, 1);
-                if (line.charAt(col) == 'W') {
-                    spriteBatch.draw(wallTexture, col, row, 1, 1);
-                }else if (line.charAt(col) == 'S') {
-                    spriteBatch.draw(enemyTexture_1, col, row, 1, 1);
-                }
-            }
-        }
-
-        characterSprite.draw(spriteBatch);
-
-        spriteBatch.end();
     }
 
     @Override
