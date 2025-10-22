@@ -48,7 +48,7 @@ public class Main implements ApplicationListener { //anything under this will de
         "W..................W",
         "W..................W",
         "W..................W",
-        "W..................W",
+        "W....S.............W",
         "W..................W",
         "W..................W",
         "W..................W",
@@ -81,6 +81,8 @@ public class Main implements ApplicationListener { //anything under this will de
             for (int col = 0; col < line.length(); col++) {
                 if (line.charAt(col) == 'W') {
                     wallRects.add(new Rectangle(col, row, 1, 1));
+                }else if (line.charAt(col) == 'S'){
+                    enemyRects.add(new Rectangle(col, row, 1, 1));
                 }
             }
         }
@@ -141,6 +143,11 @@ public class Main implements ApplicationListener { //anything under this will de
                 return;
             }
         }
+        for (Rectangle enemy : enemyRects) {
+            if (next.overlaps(enemy)) {
+                return;
+            }
+        }
 
         //not colliding, keeping character moving
         characterSprite.translate(moveX, moveY);
@@ -173,6 +180,8 @@ public class Main implements ApplicationListener { //anything under this will de
                 spriteBatch.draw(floorTexture, col, row, 1, 1);
                 if (line.charAt(col) == 'W') {
                     spriteBatch.draw(wallTexture, col, row, 1, 1);
+                }else if (line.charAt(col) == 'S') {
+                    spriteBatch.draw(enemyTexture_1, col, row, 1, 1);
                 }
             }
         }
