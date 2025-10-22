@@ -13,9 +13,15 @@ public class Main implements ApplicationListener { //anything under this will de
 
     @Override
     public void create() { //anything that is in this method needs adding to the assets with the correct name
-        currentScreen = new MenuScreen();
-
+        currentScreen = new MenuScreen(this);
     }
+
+    public void setScreen(Screen screen) {
+        if (currentScreen != null) currentScreen.hide();
+        currentScreen = screen;
+        if (currentScreen != null) currentScreen.show();
+    }
+
     @Override
     public void resize(int width, int height) {
         // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.

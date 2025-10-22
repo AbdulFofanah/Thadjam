@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,8 +21,10 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private MenuAssets assets;
     private SpriteBatch batch;
+    private Main main;
 
-    public MenuScreen() {
+    public MenuScreen(Main main) {
+        this.main = main;
         batch = new SpriteBatch();
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -29,19 +32,23 @@ public class MenuScreen implements Screen {
         assets = new MenuAssets();
 
         // Create Start Button
-        ImageButton startButton = new ImageButton(
-            new TextureRegionDrawable(assets.startButton)
-        );
+        ImageButton startButton = new ImageButton(new TextureRegionDrawable(assets.startButton));
         startButton.setPosition(Gdx.graphics.getWidth() / 2f - startButton.getWidth() / 2f,
             Gdx.graphics.getHeight() / 2f + 50);
+
+        startButton.addListener(new ClickListener() {
+           public void clicked(InputEvent event, float x, float y) {
+               main.setScreen(new GameScreen());
+           }
+        });
+
         stage.addActor(startButton);
 
         // Create Settings Button
-        ImageButton settingsButton = new ImageButton(
-            new TextureRegionDrawable(assets.settingsButton)
-        );
+        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(assets.settingsButton));
         settingsButton.setPosition(Gdx.graphics.getWidth() / 2f - settingsButton.getWidth() / 2f,
             Gdx.graphics.getHeight() / 2f - 50);
+
         stage.addActor(settingsButton);
     }
 

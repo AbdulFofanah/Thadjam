@@ -1,10 +1,12 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
 
 public class GameScreen implements Screen {
     private FitViewport viewport;
@@ -23,7 +25,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        // Called when this screen becomes the current screen
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
     }
 
     @Override
