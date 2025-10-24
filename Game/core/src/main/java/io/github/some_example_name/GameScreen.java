@@ -20,6 +20,8 @@ public class GameScreen implements Screen {
     private LevelMap level;
     private Player player;
     private Stage stage;
+    private NegativeEvent flu;
+    private PositiveEvent coffee;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -31,6 +33,10 @@ public class GameScreen implements Screen {
         level = new LevelMap(assets);
         player = new Player(assets.characterTexture, level.getEnemyRects());
         player.setPosition(1,1);
+        flu = new NegativeEvent(assets.enemyTexture_1);
+        flu.setPosition(1, 10);
+        coffee = new PositiveEvent(assets.benefitTexture_1);
+        coffee.setPosition(17, 20);
     }
 
     @Override
@@ -46,9 +52,24 @@ public class GameScreen implements Screen {
         camera.update();
         viewport.apply();
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
+
+        //handling collision between player and the flu
+        if (!flu.negative_collected && player.getBoundingRectangle().overlaps(flu.getBoundingRectangle())) {
+            flu.negative_collected = true;
+            player.speed = 3f;
+        }
+
+        //handling collision between player and the coffee
+        if (!coffee.positive_collected && player.getBoundingRectangle().overlaps(coffee.getBoundingRectangle())) {
+            coffee.positive_collected = true;
+            player.speed = 9f;
+        }
+
         game.SpriteDrawing.begin(); // Draw
         level.draw(game.SpriteDrawing);
         player.draw(game.SpriteDrawing);
+        flu.draw(game.SpriteDrawing);
+        coffee.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
     }
 

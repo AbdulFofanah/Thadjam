@@ -8,44 +8,44 @@ import com.badlogic.gdx.graphics.Texture;
 public class LevelMap {
     private final String[] levelMap = {
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-        "W.W.W.....W...................W.............W.............WW",
-        "W.W.W.WWW.W.WWWWW.WWWWWWWWWWW.WWWWW.WWWWWWW.W.WWWWWWW.WWW.WW",
-        "W.W.W.W...W...W...W.........W.W.....W.....W.W.W.....W.W...WW",
+        "W.W.W.....W...................W.............W..............W",
+        "W.W.W.WWW.W.WWWWW.WWWWWWWWWWW.WWWWW.WWWWWWW.W.WWWWWWW.WWWW.W",
+        "W.W.W.W...W...W...W.........W.W.....W.....W.W.W.....W.W....W",
         "W.W.W.W.WWW.WWW.WWW.WWWWWWW.W.W.WWWWWWW.WWW.WWW.WWW.W.W.WWWW",
-        "W.W...W.....W...W.W...W.....W...W.......W...W...W...W.W...WW",
-        "W.WWW.WWWWWWW.WWW.W.W.W.WWWWWWWWW.WWWWW.W.WWW.WWW.WWW.WWW.WW",
-        "W...W.......W.W.....W.W.W.........W...W.W.W...W.W.....W.W.WW",
-        "WWW.WWWWWWW.W.WWWWWWW.WWW.WWWWWWW.W.W.W.W.W.WWW.WWWWWWW.W.WW",
-        "W.W...W...W.W.......W...........W...W.W.W.W.W.W.......W...WW",
-        "W.WWW.W.W.W.WWWWWWW.WWWWWWWWWWW.WWWWW.W.W.W.W.W.WWWWW.W.WWWW",
-        "W...W...W.W.....W.W...W.....W.....W...W.W...W...W.W...W.W.WW",
-        "W.W.WWWWW.WWWWW.W.WWW.W.WWW.WWWWWWW.WWWWWWWWW.WWW.W.W.W.W.WW",
-        "W.W.....W.W.W...W...W.W.W.......W...W.......W.W...W.W.W.W.WW",
-        "W.W.WWW.W.W.W.WWW.W.W.W.W.WWWWW.W.WWW.WWWWW.W.WWW.W.WWW.W.WW",
-        "W.W.W...W.W.W.....W.W.W.W.W...W.W.W...W...W.W...W.W...W.W.WW",
-        "WWW.WWWWW.W.WWWWW.WWW.W.WWW.W.W.W.W.WWW.WWW.WWW.W.WWW.W.W.WW",
-        "W...W...W.W...W...W...W.....W.W.W.W.W.....W.W...W...W.W...WW",
-        "W.WWW.W.W.W.WWW.WWW.WWW.WWWWW.W.W.W.W.WWW.W.W.WWW.W.W.WWW.WW",
-        "W...W.W...W...W...W...W.W.....W.W.W.W.W...W.W.W...W.W...W.WW",
-        "W.W.W.WWWWWWW.WWW.WWW.W.W.WWWWW.W.W.WWW.W.W.W.WWW.WWWWW.W.WW",
-        "W.W.W.W.....W.....W...W.W.....W...W.....W.W.W...W.W.....W.WW",
-        "WWW.W.W.WWW.WWWWWWW.WWW.WWWWW.WWWWWWWWWWW.W.WWW.W.W.WWWWW.WW",
-        "W...W...W...W.......W...W...W.W.....W.....W...W.W.W.......WW",
+        "W.W...W.....W...W.W...W.....W...W.......W...W...W...W.W....W",
+        "W.WWW.WWWWWWW.WWW.W.W.W.WWWWWWWWW.WWWWW.W.WWW.WWW.WWW.WWWW.W",
+        "W...W.......W.W.....W.W.W.........W...W.W.W...W.W.....W....W",
+        "WWW.WWWWWWW.W.WWWWWWW.WWW.WWWWWWW.W.W.W.W.W.WWW.WWWWWWW.WWWW",
+        "W.W...W...W.W.......W...........W...W.W.W.W.W.W.......W....W",
+        "W.WWW.W.W.W.WWWWWWW.WWWWWWWWWWW.WWWWW.W.W.W.W.W.WWWWW.WWWW.W",
+        "W...W...W.W.....W.W...W.....W.....W...W.W...W...W.W...W....W",
+        "W.W.WWWWW.WWWWW.W.WWW.W.WWW.WWWWWWW.WWWWWWWWW.WWW.W.W.WWWW.W",
+        "W.W.....W.W.W...W...W.W.W.......W...W.......W.W...W.W.W..W.W",
+        "W.W.WWW.W.W.W.WWW.W.W.W.W.WWWWW.W.WWW.WWWWW.W.WWW.W.WWW.WW.W",
+        "W.W.W...W.W.W.....W.W.W.W.W...W.W.W...W...W.W...W.W...W....W",
+        "WWW.WWWWW.W.WWWWW.WWW.W.WWW.W.W.W.W.WWW.WWW.WWW.W.WWW.W.WWWW",
+        "W...W...W.W...W...W...W.....W.W.W.W.W.....W.W...W...W.W....W",
+        "W.WWW.W.W.W.WWW.WWW.WWW.WWWWW.W.W.W.W.WWW.W.W.WWW.W.W.WWWW.W",
+        "W...W.W...W...W...W...W.W.....W.W.W.W.W...W.W.W...W.W....W.W",
+        "W.W.W.WWWWWWW.WWW.WWW.W.W.WWWWW.W.W.WWW.W.W.W.WWW.WWWWWW.W.W",
+        "W.W.W.W.....W.....W...W.W.....W...W.....W.W.W...W.W......W.W",
+        "WWW.W.W.WWW.WWWWWWW.WWW.WWWWW.WWWWWWWWWWW.W.WWW.W.W.WWWWWW.W",
+        "W...W...W...W.......W...W...W.W.....W.....W...W.W.W........W",
         "W.W.WWWWW.WWW.WWWWWWW.WWW.WWW.W.WWW.W.WWWWW.W.W.W.WWWWWWWWWW",
-        "W.W.....W.W...W...W.W.W.....W...W.W...W...W.W.W.W.........WW",
-        "W.WWWWW.W.W.WWW.W.W.W.WWWWW.WWWWW.WWWWWWW.W.W.W.WWW.WWWWW.WW",
-        "W.W.....W.W.....W.W.W.....W.W.....W.......W.W.W.....W...W.WW",
-        "W.WWWWWWW.W.WWWWW.W.WWWWW.W.W.WWW.W.WWW.W.W.W.WWWWWWWWW.W.WW",
-        "W.W.....W.W...W...W.......W...W.W.....W.W.W.W.....W.....W.WW",
-        "W.W.WWW.W.WWWWW.WWW.WWWWWWW.WWW.WWWWWWW.W.W.WWWWWWW.W.WWW.WW",
-        "W.W.W...W.W.....W...W.....W.......W.W...W.W.....W...W.W...WW",
-        "W.W.W.WWW.W.WWWWW.WWW.WWW.WWWWWWW.W.W.WWW.WWWWW.W.WWW.W.WWWW",
-        "W...W.....W.W...W...W...W...W.W.....W.W.W.....W.W...W.W.W.WW",
-        "W.WWWWWWWWW.W.W.WWW.WWW.WWW.W.W.WWWWW.W.WWWWW.W.W.WWW.W.W.WW",
-        "W...W.....W.W.W.....W...W...W...W.....W.......W...W...W.W.WW",
-        "WWW.W.WWW.W.W.WWWWWWW.WWW.WWWWWWW.WWWWW.WWWWWWWWWWW.WWW.W.WW",
-        "W.....W.....W.........W...........W...............W.......WW",
-        "W.WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W.W.....W.W...W...W.W.W.....W...W.W...W...W.W.W.W..........W",
+        "W.WWWWW.W.W.WWW.W.W.W.WWWWW.WWWWW.WWWWWWW.W.W.W.WWW.WWWWWW.W",
+        "W.W.....W.W.....W.W.W.....W.W.....W.......W.W.W.....W....W.W",
+        "W.WWWWWWW.W.WWWWW.W.WWWWW.W.W.WWW.W.WWW.W.W.W.WWWWWWWWWW.W.W",
+        "W.W.....W.W...W...W.......W...W.W.....W.W.W.W.....W......W.W",
+        "W.W.WWW.W.WWWWW.WWW.WWWWWWW.WWW.WWWWWWW.W.W.WWWWWWW.WWWWWW.W",
+        "W.W.W...W.W.....W...W.....W.......W.W...W.W.....W...W......W",
+        "W.W.W.WWW.W.WWWWW.WWW.WWW.WWWWWWW.W.W.WWW.WWWWW.W.WWW.WWWWWW",
+        "W...W.....W.W...W.W.W...W...W.W.....W.W.W.W.W.W.W.....W....W",
+        "W.WWWWWWWWW.W.W.W...WWW.WWW.W.W.WWWWW.W.W.....W.W.WWW.W.WW.W",
+        "W...W.....W.W.W.WWW.W...W...W.W.W...W.W.WWWWW.W.W.W.W.W.W..W",
+        "WWW.W.W.W.W.W.W.....W.WWW.W.W...W.W...W.......W...W.W...WW.W",
+        "W...W.W.WWW.W.WWWWWWW.W.W.WWWWWWW.WWWWW.WWWWWWWWWWW.WWWWW..W",
+        "W.W...W.....W.........W...........W...............W.......WW",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
     };
 
@@ -69,7 +69,7 @@ public class LevelMap {
             for (int col = 0; col < line.length(); col++) {
                 if (line.charAt(col) == 'W') {
                     wallRects.add(new Rectangle(col, row, 1, 1));
-                } else if (line.charAt(col) == 'S') {
+                } else if (line.charAt(col) == 'P') {
                     enemyRects.add(new Rectangle(col, row, 1, 1));
                 }
             }
@@ -84,7 +84,7 @@ public class LevelMap {
                 batch.draw(floorTexture, col, row, 1, 1);
                 if (line.charAt(col) == 'W') {
                     batch.draw(wallTexture, col, row, 1, 1);
-                }else if (line.charAt(col) == 'S') {
+                }else if (line.charAt(col) == 'P') {
                     batch.draw(enemyTexture_1, col, row, 1, 1);
                 }
             }
