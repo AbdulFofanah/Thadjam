@@ -15,7 +15,7 @@ public class Assets {
         wallTexture = new Texture("brick_brown_0.png");
         characterTexture = new Texture("Run__000.png");
         floorTexture = new Texture("floor_sand_rock_0.png");
-        enemyTexture_1 = new Texture("giant_spore.png");
+        enemyTexture_1 = new Texture("pizza_new.png");
     }
 
     public void dispose() {

@@ -69,7 +69,7 @@ public class LevelMap {
             for (int col = 0; col < line.length(); col++) {
                 if (line.charAt(col) == 'W') {
                     wallRects.add(new Rectangle(col, row, 1, 1));
-                } else if (line.charAt(col) == 'S') {
+                } else if (line.charAt(col) == 'P') {
                     enemyRects.add(new Rectangle(col, row, 1, 1));
                 }
             }
@@ -84,7 +84,7 @@ public class LevelMap {
                 batch.draw(floorTexture, col, row, 1, 1);
                 if (line.charAt(col) == 'W') {
                     batch.draw(wallTexture, col, row, 1, 1);
-                }else if (line.charAt(col) == 'S') {
+                }else if (line.charAt(col) == 'P') {
                     batch.draw(enemyTexture_1, col, row, 1, 1);
                 }
             }

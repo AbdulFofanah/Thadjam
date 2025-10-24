@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Player {
     private Sprite sprite;
-    private float speed = 8f;
+    public float speed = 8f;
     private float moveX = 0f;
     private float moveY = 0f;
 
@@ -47,13 +47,6 @@ public class Player {
             }
         }
 
-        // Collision detection
-        for (Rectangle enemy : enemyRects) {
-            if (NextArea.overlaps(enemy)) {
-                return; // collided
-            }
-        }
-
         //not colliding, keeping character moving
         sprite.translate(moveX, moveY);
     }
@@ -76,6 +69,10 @@ public class Player {
     public Rectangle getBoundingRectangle() {
         return sprite.getBoundingRectangle();
     }
+
+    public float getX() {return sprite.getX();}
+
+    public float getY() {return sprite.getY();}
 }
 
 

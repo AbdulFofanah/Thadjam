@@ -20,6 +20,7 @@ public class GameScreen implements Screen {
     private LevelMap level;
     private Player player;
     private Stage stage;
+    private NegativeEvent flu;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -31,6 +32,8 @@ public class GameScreen implements Screen {
         level = new LevelMap(assets);
         player = new Player(assets.characterTexture, level.getEnemyRects());
         player.setPosition(1,1);
+        flu = new NegativeEvent(assets.enemyTexture_1);
+        flu.setPosition(1, 10);
     }
 
     @Override
@@ -46,9 +49,17 @@ public class GameScreen implements Screen {
         camera.update();
         viewport.apply();
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
+
+        //handling collision between player and the flu
+        if (!flu.collected && player.getBoundingRectangle().overlaps(flu.getBoundingRectangle())) {
+            flu.collected = true;
+            player.speed = 0.4f;
+        }
+
         game.SpriteDrawing.begin(); // Draw
         level.draw(game.SpriteDrawing);
         player.draw(game.SpriteDrawing);
+        flu.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
     }
 
