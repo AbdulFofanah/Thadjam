@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class NegativeEvent {
     private Sprite sprite;
-    public boolean collected = false;
+    public boolean negative_collected = false;
 
     public NegativeEvent(Texture texture) {
         this.sprite = new Sprite(texture);
@@ -18,7 +18,7 @@ public class NegativeEvent {
     public Rectangle getBoundingRectangle() {return sprite.getBoundingRectangle();}
 
     public void draw(SpriteBatch SpriteDrawing) {
-        if (!collected) {
+        if (!negative_collected) {
             sprite.draw(SpriteDrawing);
         }
     }
