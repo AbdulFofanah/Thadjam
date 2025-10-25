@@ -22,6 +22,7 @@ public class NegativeEvent {
             sprite.draw(SpriteDrawing);
         }
     }
+
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
     }

@@ -10,6 +10,7 @@ public class Assets {
     public Texture characterTexture;
     public Texture enemyTexture_1;
     public Texture benefitTexture_1;
+    public Texture hiddenTexture_1;
     public Music music;
 
     public Assets() {
@@ -18,6 +19,7 @@ public class Assets {
         floorTexture = new Texture("floor_sand_rock_0.png");
         enemyTexture_1 = new Texture("pizza_new.png");
         benefitTexture_1 = new Texture("sausage.png");
+        hiddenTexture_1 = new Texture("honeycomb_old.png");
     }
 
     public void dispose() {
@@ -26,5 +28,6 @@ public class Assets {
         floorTexture.dispose();
         enemyTexture_1.dispose();
         benefitTexture_1.dispose();
+        hiddenTexture_1.dispose();
     }
 }

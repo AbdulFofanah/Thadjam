@@ -2,6 +2,8 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -22,6 +24,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private NegativeEvent flu;
     private PositiveEvent coffee;
+    private HiddenEvent hidden_1;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -31,12 +34,14 @@ public class GameScreen implements Screen {
         viewport = new FitViewport(60,40, camera);
         assets = new Assets();
         level = new LevelMap(assets);
-        player = new Player(assets.characterTexture, level.getEnemyRects());
+        player = new Player(assets.characterTexture);
         player.setPosition(1,1);
         flu = new NegativeEvent(assets.enemyTexture_1);
         flu.setPosition(1, 10);
         coffee = new PositiveEvent(assets.benefitTexture_1);
         coffee.setPosition(17, 20);
+        hidden_1 = new HiddenEvent(assets.hiddenTexture_1);
+        hidden_1.setPosition(26, 26);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float frametime) {
         handleInput(frametime); // This calls player.setMovement()
-        player.update(frametime, level.getWallRects(), level.getEnemyRects()); // updates game logic
+        player.update(frametime, level.getWallRects()); // updates game logic
         ScreenUtils.clear(Color.BLACK);
         camera.update();
         viewport.apply();
@@ -65,12 +70,35 @@ public class GameScreen implements Screen {
             player.speed = 9f;
         }
 
+        //handling collision between player and the invisible event
+        if (!hidden_1.hidden_collected && player.getBoundingRectangle().overlaps(hidden_1.getBoundingRectangle())) {
+            hidden_1.hidden_collected = true;
+            Vector2 newPosition = getRandomLocation(level);
+            player.setPosition(newPosition.x, newPosition.y);
+        }
+
+
         game.SpriteDrawing.begin(); // Draw
         level.draw(game.SpriteDrawing);
         player.draw(game.SpriteDrawing);
         flu.draw(game.SpriteDrawing);
         coffee.draw(game.SpriteDrawing);
+        hidden_1.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
+    }
+
+    private Vector2 getRandomLocation(LevelMap level) {
+        int rows = viewport.getScreenWidth();
+        int columns = viewport.getScreenHeight();
+
+        while(true) {
+            int x = MathUtils.random(0, columns - 1);
+            int y = MathUtils.random(0, rows - 1);
+
+            if (level.isWalkable(x, y)) {
+                return new Vector2(x, y);
+            }
+        }
     }
 
     private void handleInput(float delta) {
