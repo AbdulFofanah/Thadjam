@@ -1,6 +1,8 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -12,12 +14,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.Texture;
+
 
 
 public class GameScreen implements Screen {
     private final Main game;
     private OrthographicCamera camera;
     private FitViewport viewport;
+    private OrthographicCamera HUDcamera;
+
     private Assets assets;
     private LevelMap level;
     private Player player;
@@ -26,34 +34,62 @@ public class GameScreen implements Screen {
     private PositiveEvent coffee;
     private HiddenEvent hidden_1;
 
+    private float Time;
+    private BitmapFont font;
+
     public GameScreen(Main game) {
         this.game = game;
+
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
+        //Main camera
         camera = new OrthographicCamera();
         viewport = new FitViewport(60,40, camera);
+
+        //Hud camera
+        HUDcamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        HUDcamera.setToOrtho(false); // y=0 bottom, y=height top
+        HUDcamera.update();
+
+        //Assets
         assets = new Assets();
         level = new LevelMap(assets);
         player = new Player(assets.characterTexture);
         player.setPosition(1,1);
+
+        //Events
         flu = new NegativeEvent(assets.enemyTexture_1);
         flu.setPosition(1, 10);
+
         coffee = new PositiveEvent(assets.benefitTexture_1);
         coffee.setPosition(17, 20);
+
         hidden_1 = new HiddenEvent(assets.hiddenTexture_1);
         hidden_1.setPosition(26, 26);
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 128; //bigger number = higher res font when shrunk
+        parameter.color = Color.WHITE;
+        parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
+        parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
+
+        font = generator.generateFont(parameter);
+        generator.dispose();
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
     public void render(float frametime) {
+
         handleInput(frametime); // This calls player.setMovement()
         player.update(frametime, level.getWallRects()); // updates game logic
         ScreenUtils.clear(Color.BLACK);
+
         camera.update();
         viewport.apply();
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
@@ -77,15 +113,36 @@ public class GameScreen implements Screen {
             player.setPosition(newPosition.x, newPosition.y);
         }
 
+        Time += frametime;
 
-        game.SpriteDrawing.begin(); // Draw
+        // Draw the world
+        game.SpriteDrawing.begin();
         level.draw(game.SpriteDrawing);
         player.draw(game.SpriteDrawing);
         flu.draw(game.SpriteDrawing);
         coffee.draw(game.SpriteDrawing);
         hidden_1.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
+
+        game.SpriteDrawing.begin();
+        game.SpriteDrawing.setProjectionMatrix(HUDcamera.combined);
+
+        //font size
+        font.getData().setScale(0.6f);
+
+        String timeText = "Time: " + (int)Time + "s";
+        GlyphLayout layout = new GlyphLayout(font, timeText);
+
+        //timer location
+        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float y = Gdx.graphics.getHeight() - 20;
+
+        font.draw(game.SpriteDrawing, layout, x, y);
+        game.SpriteDrawing.end();
+
+        game.SpriteDrawing.setProjectionMatrix(camera.combined);
     }
+
 
     private Vector2 getRandomLocation(LevelMap level) {
         int rows = viewport.getScreenWidth();
