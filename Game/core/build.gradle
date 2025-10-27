@@ -1,10 +1,14 @@
-  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-  eclipse.project.name = appName + '-core'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
 
-  dependencies {
-    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+dependencies {
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 
-    if(enableGraalNative == 'true') {
-      implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
-    }
+  // Add FreeType desktop natives so DLL can be extracted
+  implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
+  if (enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+}
