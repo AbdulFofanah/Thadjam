@@ -107,21 +107,12 @@ public class GameScreen implements Screen {
         float speed = player.getSpeed(); // Get speed from player
 
         // updates the moving variables based on the input for the character
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            moveY = speed * delta; // Y move
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            moveY = -speed * delta; //  move
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            moveX = -speed * delta; // X move
-        } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            moveX = speed * delta; //  X move
-        }
-
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) moveY = speed * delta; // Y move
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))moveY = -speed * delta; //  move
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveX = -speed * delta; // X move
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveX = speed * delta; //  X move
 
         player.setMovement(moveX, moveY);
-
     }
 
     public void resize(int width, int height){
