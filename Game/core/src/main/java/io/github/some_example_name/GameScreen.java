@@ -142,5 +142,6 @@ public class GameScreen implements Screen {
 
     public void dispose(){
         assets.dispose();
+        font.dispose(); // dispose font
     }
 }
