@@ -15,7 +15,7 @@ public class Player {
     private float moveX = 0f;
     private float moveY = 0f;
 
-    public Player (Texture texture, Array<Rectangle> enemyRects) {
+    public Player (Texture texture) {
         this.sprite = new Sprite(texture);
         this.sprite.setSize(0.8f, 0.8f);
     }
@@ -25,15 +25,15 @@ public class Player {
         moveY = dy;
     }
 
-    public void update(float frametime, Array<Rectangle> wallRects, Array<Rectangle> enemyRects) {
-        tryMove(moveX, 0, wallRects, enemyRects); // Try moving horizontally
-        tryMove(0, moveY, wallRects, enemyRects); // Try moving vertically
+    public void update(float frametime, Array<Rectangle> wallRects) {
+        tryMove(moveX, 0, wallRects); // Try moving horizontally
+        tryMove(0, moveY, wallRects); // Try moving vertically
         //Reset movement by frame
         moveX = 0;
         moveY = 0;
     }
 
-    private void tryMove(float moveX, float moveY, Array<Rectangle> wallRects, Array<Rectangle> enemyRects) {
+    private void tryMove(float moveX, float moveY, Array<Rectangle> wallRects) {
         if (moveX == 0 && moveY == 0) return;
 
         Rectangle AllowedArea = sprite.getBoundingRectangle();
