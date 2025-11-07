@@ -164,11 +164,26 @@ public class GameScreen implements Screen {
         float speed = player.getSpeed(); // Get speed from player
 
         // updates the moving variables based on the input for the character
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) moveY = speed * delta; // Y move
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))moveY = -speed * delta; //  move
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveX = -speed * delta; // X move
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveX = speed * delta; //  X move
-
+        // checks the setting to see if arrows keys is selected, else its wasd keys
+        if (GameControlsConfig.useArrowKeys) {
+            if (Gdx.input.isKeyPressed(Input.Keys.UP))
+                moveY = speed * delta; // Y move
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+                moveY = -speed * delta; //  move
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                moveX = -speed * delta; // X move
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                moveX = speed * delta; //  X move
+        } else {
+            if (Gdx.input.isKeyPressed(Input.Keys.W))
+                moveY = speed * delta; // Y move
+            if (Gdx.input.isKeyPressed(Input.Keys.S))
+                moveY = -speed * delta; //  move
+            if (Gdx.input.isKeyPressed(Input.Keys.A))
+                moveX = -speed * delta; // X move
+            if (Gdx.input.isKeyPressed(Input.Keys.D))
+                moveX = speed * delta; //  X move
+        }
         player.setMovement(moveX, moveY);
     }
 

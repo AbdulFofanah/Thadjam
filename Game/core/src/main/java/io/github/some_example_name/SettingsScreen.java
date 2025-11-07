@@ -25,6 +25,7 @@ public class SettingsScreen implements Screen {
         assets = new MenuAssets();
 
         ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(assets.settingsButton));
+        settingsButton.setSize(200f, 80f);
         settingsButton.setPosition(
             Gdx.graphics.getWidth() / 2f - settingsButton.getWidth() / 2f,
             Gdx.graphics.getHeight() / 2f + 250
@@ -34,6 +35,7 @@ public class SettingsScreen implements Screen {
 
         // Create Settings Button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(assets.backButton));
+        backButton.setSize(200f, 80f);
         backButton.setPosition(
             100,
             100);
@@ -43,9 +45,44 @@ public class SettingsScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new MenuScreen(game));
             }
+
         });
 
         stage.addActor(backButton);
+
+        ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(assets.arrowButton));
+        arrowButton.setSize(400f, 160f);
+        arrowButton.setPosition(
+            300,
+            500);
+
+        arrowButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameControlsConfig.useArrowKeys = true; // Set default to arrow keys thus making wasd false implicitlu
+                game.setScreen(new MenuScreen(game)); // Go back to menu
+            }
+
+        });
+
+        stage.addActor(arrowButton);
+
+        ImageButton wasdButton = new ImageButton(new TextureRegionDrawable(assets.wasdButton));
+        wasdButton.setSize(400f, 160f);
+        wasdButton.setPosition(
+            400,
+            500);
+
+        wasdButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameControlsConfig.useArrowKeys = false; // Set arrow keys to false thus making wasd true implicitlu
+                game.setScreen(new MenuScreen(game)); // Go back to menu
+            }
+
+        });
+
+        stage.addActor(wasdButton);
     }
 
     @Override
