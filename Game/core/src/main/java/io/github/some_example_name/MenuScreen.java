@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     };
 
     float startX = (Gdx.graphics.getWidth() - 300f) / 2f;
-    float starty = (Gdx.graphics.getHeight() /2f + 150f);
+    float starty = (Gdx.graphics.getHeight() /2f + 50f);
     float gap = 400f;
 
 
@@ -104,7 +104,7 @@ public class MenuScreen implements Screen {
         //font setup
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 128;
+        parameter.size = 64;
         parameter.color = Color.WHITE;  // make font white so color can be changed at draw time
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
@@ -139,7 +139,7 @@ public class MenuScreen implements Screen {
 
         //text location
         float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f;
-        float y = 1800; //Gdx.graphics.getHeight() - 200;
+        float y = 700; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
 

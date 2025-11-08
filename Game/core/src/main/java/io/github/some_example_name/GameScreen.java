@@ -76,14 +76,15 @@ public class GameScreen implements Screen {
         hidden_1.setPosition(26, 26);
 
         endSquare = new EndEvent(gameAssests.graduationCapTexture);
-        endSquare.setPosition(39, 18);
+        //endSquare.setPosition(39, 18);
+        endSquare.setPosition(1, 2);
 
         //back button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
-        backButton.setSize(250f, 50f);
+        backButton.setSize(100f, 25f);
         backButton.setPosition(
-            -95,
-            0);
+            -20,
+            -5);
         backButton.getImage().setFillParent(true);
 
         backButton.addListener(new ClickListener() {

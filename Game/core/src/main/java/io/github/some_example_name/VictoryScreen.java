@@ -41,7 +41,7 @@ public class VictoryScreen implements Screen {
 
         // Create Settings Button
         ImageButton homeButton = new ImageButton(new TextureRegionDrawable(menuAssets.homeButton));
-        homeButton.setSize(600f, 300f);
+        homeButton.setSize(300f, 150f);
         homeButton.setPosition(
             50,
             50);
@@ -96,8 +96,8 @@ public class VictoryScreen implements Screen {
 
 
         //text location
-        float x = 1000; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
-        float y = 1800; //Gdx.graphics.getHeight() - 200;
+        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float y = 700; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
 
@@ -111,8 +111,8 @@ public class VictoryScreen implements Screen {
         GlyphLayout statsLayout = new GlyphLayout(font, statsText);
 
         //text location
-        float statsX = 1000; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
-        float statsY = 1600; //Gdx.graphics.getHeight() - 200;
+        float statsX = Gdx.graphics.getWidth() / 2f - layout.width / 2f; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float statsY = 600; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
 
