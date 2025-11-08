@@ -62,7 +62,7 @@ public class GameScreen implements Screen {
         menuAssets = new MenuAssets();
         gameAssests = new Assets();
         level = new LevelMap(gameAssests);
-        player = new Player(gameAssests.characterTexture);
+        player = new Player(gameAssests.playerRunAnimation, gameAssests.playerIdleAnimation, gameAssests.characterTexture);
         player.setPosition(1,1);
 
         //Events

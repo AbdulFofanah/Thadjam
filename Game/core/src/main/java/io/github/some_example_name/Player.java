@@ -3,11 +3,15 @@ package io.github.some_example_name;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.math.Rectangle;
+
+import java.sql.DataTruncation;
 
 public class Player {
     private Sprite sprite;
@@ -15,9 +19,23 @@ public class Player {
     private float moveX = 0f;
     private float moveY = 0f;
 
+    private Animation<TextureRegion> playerRunAnimation;
+    private Animation<TextureRegion> playerIdleAnimation;
+    private float stateTime = 0f;
+    private boolean useAnimation = false;
+    private boolean moving = false;
+
     public Player (Texture texture) {
         this.sprite = new Sprite(texture);
         this.sprite.setSize(0.8f, 0.8f);
+    }
+
+    public Player (Animation<TextureRegion> playerRunAnimation, Animation<TextureRegion> playerIdleAnimation, Texture texture) {
+        this.sprite = new Sprite(texture);
+        this.playerRunAnimation = playerRunAnimation;
+        this.playerIdleAnimation = playerIdleAnimation;
+        this.sprite.setSize(0.8f, 0.8f);
+        this.useAnimation = true;
     }
 
     public void setMovement(float dx, float dy) {
@@ -28,6 +46,13 @@ public class Player {
     public void update(float frametime, Array<Rectangle> wallRects) {
         tryMove(moveX, 0, wallRects); // Try moving horizontally
         tryMove(0, moveY, wallRects); // Try moving vertically
+
+        moving = (moveX != 0 || moveY != 0);
+
+        if (useAnimation) {
+            stateTime += frametime;
+        }
+
         //Reset movement by frame
         moveX = 0;
         moveY = 0;
@@ -52,7 +77,20 @@ public class Player {
     }
 
     public void draw(SpriteBatch SpriteDrawing) {
-        sprite.draw(SpriteDrawing);
+        TextureRegion frame;
+        if (useAnimation) {
+            if (moving && playerRunAnimation != null) {
+                frame = playerRunAnimation.getKeyFrame(stateTime, true);
+            } else if (!moving && playerIdleAnimation != null) {
+                frame = playerIdleAnimation.getKeyFrame(stateTime, true);
+            } else {
+                frame = new TextureRegion(sprite.getTexture());
+            }
+
+            SpriteDrawing.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+        } else {
+            sprite.draw(SpriteDrawing);
+        }
     }
 
     // Speed Getter
