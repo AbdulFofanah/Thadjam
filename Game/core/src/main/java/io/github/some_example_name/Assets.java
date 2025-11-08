@@ -5,12 +5,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
 
 public class Assets {
-    public Texture wallTexture;
-    public Texture floorTexture;
-    public Texture characterTexture;
-    public Texture enemyTexture_1;
-    public Texture benefitTexture_1;
-    public Texture hiddenTexture_1;
+    public Texture wallTexture, floorTexture, characterTexture, enemyTexture_1,
+                   benefitTexture_1, hiddenTexture_1, schoolTexture_1,
+                   oldSchoolMazeTexture_1, classroomTexture_1, graduationCapTexture,
+                   graduationTexture;
     public Music music;
 
     public Assets() {
@@ -20,6 +18,11 @@ public class Assets {
         enemyTexture_1 = new Texture("pizza_new.png");
         benefitTexture_1 = new Texture("sausage.png");
         hiddenTexture_1 = new Texture("honeycomb_old.png");
+        schoolTexture_1 = new Texture("school.png");
+        oldSchoolMazeTexture_1 = new Texture("old_school_maze.png");
+        classroomTexture_1 = new Texture("classroom.png");
+        graduationCapTexture = new Texture("graduation_cap.png");
+        graduationTexture = new Texture("victory_graduation_screen.png");
     }
 
     public void dispose() {
@@ -29,5 +32,11 @@ public class Assets {
         enemyTexture_1.dispose();
         benefitTexture_1.dispose();
         hiddenTexture_1.dispose();
+        schoolTexture_1.dispose();
+        oldSchoolMazeTexture_1.dispose();
+        classroomTexture_1.dispose();
+        graduationCapTexture.dispose();
+        graduationTexture.dispose();
+
     }
 }

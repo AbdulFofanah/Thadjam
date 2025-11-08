@@ -1,31 +1,34 @@
 package io.github.some_example_name;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen implements Screen {
+public class VictoryScreen implements Screen {
 
     private Stage stage;
     private MenuAssets menuAssets;
     private Assets backgroundAssets;
-    private BitmapFont font;
     private final Main game;
-    private String[] titleText = {
-        "!!!THADJAM's Escape the Maze Game!!!"
+    private BitmapFont font;
+    public float finalTime;
+    public float finalScore;
+    private String[] wonText = {
+        "!!!You won and graduated!!!"
     };
 
-    public MenuScreen(Main game) {
+    public VictoryScreen(Main game) {
         this.game = game;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -33,76 +36,29 @@ public class MenuScreen implements Screen {
         menuAssets = new MenuAssets();
         backgroundAssets = new Assets();
 
-        // Create Start Button
-        ImageButton startButton = new ImageButton(new TextureRegionDrawable(menuAssets.startButton));
-        startButton.setSize(600f, 300f);
-        startButton.setPosition(
-            1200,
-            1100);
-        startButton.getImage().setFillParent(true);
-
-        startButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-               game.setScreen(new GameScreen(game));
-           }
-        });
-
-        stage.addActor(startButton);
-
-        // Tutorial Button
-        ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(menuAssets.tutorialButton));
-        tutorialButton.setSize(600f, 300f);
-        tutorialButton.setPosition(
-            1200,
-            700);
-        tutorialButton.getImage().setFillParent(true);
-
-        tutorialButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new TutorialScreen(game));
-            }
-        });
-        stage.addActor(tutorialButton);
 
         // Create Settings Button
-        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(menuAssets.settingsButton));
-        settingsButton.setSize(600f, 300f);
-        settingsButton.setPosition(
-            1200,
-            300);
-        settingsButton.getImage().setFillParent(true);
-
-        settingsButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SettingsScreen(game));
-            }
-        });
-
-        stage.addActor(settingsButton);
-
-        ImageButton exitButton = new ImageButton(new TextureRegionDrawable(menuAssets.exitButton));
-        exitButton.setSize(600f, 300f);
-        exitButton.setPosition(
+        ImageButton homeButton = new ImageButton(new TextureRegionDrawable(menuAssets.homeButton));
+        homeButton.setSize(600f, 300f);
+        homeButton.setPosition(
             50,
             50);
-        exitButton.getImage().setFillParent(true);
+        homeButton.getImage().setFillParent(true);
 
-        exitButton.addListener(new ClickListener() {
+        homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                game.setScreen(new MenuScreen(game));
             }
+
         });
 
-        stage.addActor(exitButton);
+        stage.addActor(homeButton);
 
         //font setup
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 128;
+        parameter.size = 240;
         parameter.color = Color.WHITE;  // make font white so color can be changed at draw time
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
@@ -119,24 +75,25 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // Clear screen with a color
         ScreenUtils.clear(Color.BLACK);
         float screenWidth = stage.getViewport().getWorldWidth();
         float screenHeight = stage.getViewport().getWorldHeight();
 
         game.SpriteDrawing.setProjectionMatrix(stage.getCamera().combined);
         game.SpriteDrawing.begin();
-        game.SpriteDrawing.draw(backgroundAssets.classroomTexture_1, 0, 0, screenWidth, screenHeight);
+        game.SpriteDrawing.draw(backgroundAssets.graduationTexture, 0, 0, screenWidth, screenHeight);
         game.SpriteDrawing.end();
 
         stage.act(delta);
         stage.draw();
 
-        String text = String.join("\n\n", titleText);
+        font.getData().setScale(0.4f);
+
+        String text = String.join("\n\n", wonText);
         GlyphLayout layout = new GlyphLayout(font, text);
 
         //text location
-        float x = 450; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float x = 1000; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
         float y = 1800; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
@@ -145,24 +102,26 @@ public class MenuScreen implements Screen {
         font.draw(game.SpriteDrawing, layout, x, y);
 
         game.SpriteDrawing.end();
-
     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    public void resize(int screenWidth, int screenHeight) {
+        stage.getViewport().update(screenWidth, screenHeight, true);
     }
 
     @Override
     public void pause() {
+
     }
 
     @Override
     public void resume() {
+
     }
 
     @Override
     public void hide() {
+
     }
 
     @Override
@@ -170,6 +129,5 @@ public class MenuScreen implements Screen {
         stage.dispose();
         menuAssets.dispose();
         backgroundAssets.dispose();
-        font.dispose();
     }
 }

@@ -14,7 +14,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class SettingsScreen implements Screen {
 
     private Stage stage;
-    private MenuAssets assets;
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
     private final Main game;
 
     public SettingsScreen(Main game) {
@@ -22,23 +23,25 @@ public class SettingsScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        assets = new MenuAssets();
+        menuAssets = new MenuAssets();
+        backgroundAssets = new Assets();
 
-        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(assets.settingsButton));
-        settingsButton.setSize(200f, 80f);
+        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(menuAssets.settingsButton));
+        settingsButton.setSize(600f, 300f);
         settingsButton.setPosition(
-            Gdx.graphics.getWidth() / 2f - settingsButton.getWidth() / 2f,
-            Gdx.graphics.getHeight() / 2f + 250
-        );
+            1200,
+            1500);
+        settingsButton.getImage().setFillParent(true);
 
         stage.addActor(settingsButton);
 
         // Create Settings Button
-        ImageButton backButton = new ImageButton(new TextureRegionDrawable(assets.backButton));
-        backButton.setSize(200f, 80f);
+        ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
+        backButton.setSize(600f, 300f);
         backButton.setPosition(
-            100,
-            100);
+            50,
+            50);
+        backButton.getImage().setFillParent(true);
 
         backButton.addListener(new ClickListener() {
             @Override
@@ -50,11 +53,12 @@ public class SettingsScreen implements Screen {
 
         stage.addActor(backButton);
 
-        ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(assets.arrowButton));
-        arrowButton.setSize(400f, 160f);
+        ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(menuAssets.arrowButton));
+        arrowButton.setSize(1200f, 600f);
         arrowButton.setPosition(
-            300,
+            -300,
             500);
+        arrowButton.getImage().setFillParent(true);
 
         arrowButton.addListener(new ClickListener() {
             @Override
@@ -67,11 +71,12 @@ public class SettingsScreen implements Screen {
 
         stage.addActor(arrowButton);
 
-        ImageButton wasdButton = new ImageButton(new TextureRegionDrawable(assets.wasdButton));
-        wasdButton.setSize(400f, 160f);
+        ImageButton wasdButton = new ImageButton(new TextureRegionDrawable(menuAssets.wasdButton));
+        wasdButton.setSize(1200f, 600f);
         wasdButton.setPosition(
-            400,
+            1200,
             500);
+        wasdButton.getImage().setFillParent(true);
 
         wasdButton.addListener(new ClickListener() {
             @Override
@@ -92,15 +97,22 @@ public class SettingsScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.BLUE);
+        ScreenUtils.clear(Color.BLACK);
+        float screenWidth = stage.getViewport().getWorldWidth();
+        float screenHeight = stage.getViewport().getWorldHeight();
+
+        game.SpriteDrawing.setProjectionMatrix(stage.getCamera().combined);
+        game.SpriteDrawing.begin();
+        game.SpriteDrawing.draw(backgroundAssets.schoolTexture_1, 0, 0, screenWidth, screenHeight);
+        game.SpriteDrawing.end();
 
         stage.act(delta);
         stage.draw();
     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    public void resize(int screenWidth, int screenHeight) {
+        stage.getViewport().update(screenWidth, screenHeight, true);
     }
 
     @Override
@@ -121,6 +133,7 @@ public class SettingsScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        assets.dispose();
+        menuAssets.dispose();
+        backgroundAssets.dispose();
     }
 }

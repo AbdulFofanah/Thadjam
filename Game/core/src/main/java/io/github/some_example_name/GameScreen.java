@@ -3,10 +3,13 @@ package io.github.some_example_name;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.Gdx;
@@ -15,9 +18,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.graphics.Texture;
-
 
 
 public class GameScreen implements Screen {
@@ -26,15 +26,19 @@ public class GameScreen implements Screen {
     private FitViewport viewport;
     private OrthographicCamera HUDcamera;
 
-    private Assets assets;
+    private Assets gameAssests;
+    private MenuAssets menuAssets;
     private LevelMap level;
     private Player player;
     private Stage stage;
     private NegativeEvent flu;
     private PositiveEvent coffee;
     private HiddenEvent hidden_1;
+    private EndEvent endSquare;
 
-    private float Time;
+    private float time;
+    public float finalTime;
+    public float finalScore;
     private BitmapFont font;
 
     public GameScreen(Main game) {
@@ -53,20 +57,44 @@ public class GameScreen implements Screen {
         HUDcamera.update();
 
         //Assets
-        assets = new Assets();
-        level = new LevelMap(assets);
-        player = new Player(assets.characterTexture);
+        menuAssets = new MenuAssets();
+        gameAssests = new Assets();
+        level = new LevelMap(gameAssests);
+        player = new Player(gameAssests.characterTexture);
         player.setPosition(1,1);
 
         //Events
-        flu = new NegativeEvent(assets.enemyTexture_1);
+        flu = new NegativeEvent(gameAssests.enemyTexture_1);
         flu.setPosition(1, 10);
 
-        coffee = new PositiveEvent(assets.benefitTexture_1);
+        coffee = new PositiveEvent(gameAssests.benefitTexture_1);
         coffee.setPosition(17, 20);
 
-        hidden_1 = new HiddenEvent(assets.hiddenTexture_1);
+        hidden_1 = new HiddenEvent(gameAssests.hiddenTexture_1);
         hidden_1.setPosition(26, 26);
+
+        endSquare = new EndEvent(gameAssests.graduationCapTexture);
+        endSquare.setPosition(1, 9);
+
+        //back button
+        ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
+        backButton.setSize(250f, 50f);
+        backButton.setPosition(
+            -95,
+            0);
+        backButton.getImage().setFillParent(true);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                time = 0f;
+                player.setPosition(1, 1);
+                game.setScreen(new MenuScreen(game));
+            }
+
+        });
+
+        stage.addActor(backButton);
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -94,26 +122,39 @@ public class GameScreen implements Screen {
         viewport.apply();
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
 
+        //handling collision between player and the end tile
+        if (!endSquare.ending_reached &&
+            player.getBoundingRectangle().overlaps(endSquare.getBoundingRectangle())) {
+            endSquare.ending_reached = true;
+            finalTime = time;
+            finalScore = (float) ((time) * 3.1415926);
+            time = 0;
+            game.setScreen(new VictoryScreen(game));
+        }
+
         //handling collision between player and the flu
-        if (!flu.negative_collected && player.getBoundingRectangle().overlaps(flu.getBoundingRectangle())) {
+        if (!flu.negative_collected &&
+            player.getBoundingRectangle().overlaps(flu.getBoundingRectangle())) {
             flu.negative_collected = true;
             player.speed = 3f;
         }
 
         //handling collision between player and the coffee
-        if (!coffee.positive_collected && player.getBoundingRectangle().overlaps(coffee.getBoundingRectangle())) {
+        if (!coffee.positive_collected &&
+            player.getBoundingRectangle().overlaps(coffee.getBoundingRectangle())) {
             coffee.positive_collected = true;
             player.speed = 9f;
         }
 
         //handling collision between player and the invisible event
-        if (!hidden_1.hidden_collected && player.getBoundingRectangle().overlaps(hidden_1.getBoundingRectangle())) {
+        if (!hidden_1.hidden_collected &&
+            player.getBoundingRectangle().overlaps(hidden_1.getBoundingRectangle())) {
             hidden_1.hidden_collected = true;
             Vector2 newPosition = getRandomLocation(level);
             player.setPosition(newPosition.x, newPosition.y);
         }
 
-        Time += frametime;
+        time += frametime;
 
         // Draw the world
         game.SpriteDrawing.begin();
@@ -122,6 +163,7 @@ public class GameScreen implements Screen {
         flu.draw(game.SpriteDrawing);
         coffee.draw(game.SpriteDrawing);
         hidden_1.draw(game.SpriteDrawing);
+        endSquare.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
 
         game.SpriteDrawing.begin();
@@ -130,7 +172,7 @@ public class GameScreen implements Screen {
         //font size
         font.getData().setScale(0.6f);
 
-        String timeText = "Time: " + (int)Time + "s";
+        String timeText = "Time: " + (int) time + "s";
         GlyphLayout layout = new GlyphLayout(font, timeText);
 
         //timer location
@@ -141,6 +183,9 @@ public class GameScreen implements Screen {
         game.SpriteDrawing.end();
 
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
+
+        stage.draw();
+
     }
 
 
@@ -206,7 +251,8 @@ public class GameScreen implements Screen {
     }
 
     public void dispose(){
-        assets.dispose();
+        gameAssests.dispose();
+        menuAssets.dispose();
         font.dispose(); // dispose font
     }
 }

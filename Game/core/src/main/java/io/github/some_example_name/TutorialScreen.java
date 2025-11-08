@@ -18,13 +18,15 @@ public class TutorialScreen implements Screen {
 
     private final Main game;
     private Stage stage;
-    private MenuAssets assets;
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
     private BitmapFont font;
     private String[] tutorialText = {
-        "Welcome to THADJAM!",
-        "Use the arrow keys or WASD to move around the maze. (Configure in settings)",
+        "Welcome to THADJAM's Escape the Maze Game!",
+        "Use the arrow keys or WASD to move around the maze.",
+        "(Configure in settings)",
         "Avoid traps and get boosts",
-        "Reach the end to finish. Good luck!"
+        "Reach the end (graduation cap) to finish. Good luck!"
     };
 
     public TutorialScreen(Main game) {
@@ -32,19 +34,26 @@ public class TutorialScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        assets = new MenuAssets();
+        menuAssets = new MenuAssets();
+        backgroundAssets = new Assets();
 
         // Tutorial button
-        ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(assets.tutorialButton));
+        ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(menuAssets.tutorialButton));
+        tutorialButton.setSize(600f, 300f);
         tutorialButton.setPosition(
-            Gdx.graphics.getWidth() / 2f - tutorialButton.getWidth() / 2f,
-            Gdx.graphics.getHeight() / 2f + 250
-        );
+            1200,
+            1500);
+        tutorialButton.getImage().setFillParent(true);
         stage.addActor(tutorialButton);
 
         // Back button
-        ImageButton backButton = new ImageButton(new TextureRegionDrawable(assets.backButton));
-        backButton.setPosition(100, 100);
+        ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
+        backButton.setSize(600f, 300f);
+        backButton.setPosition(
+            50,
+            50);
+        backButton.getImage().setFillParent(true);
+
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -56,7 +65,7 @@ public class TutorialScreen implements Screen {
         //font setup
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 64;
+        parameter.size = 240;
         parameter.color = Color.WHITE;  // make font white so color can be changed at draw time
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
@@ -68,8 +77,14 @@ public class TutorialScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.GRAY);
+        ScreenUtils.clear(Color.BLACK);
+        float screenWidth = stage.getViewport().getWorldWidth();
+        float screenHeight = stage.getViewport().getWorldHeight();
 
+        game.SpriteDrawing.setProjectionMatrix(stage.getCamera().combined);
+        game.SpriteDrawing.begin();
+        game.SpriteDrawing.draw(backgroundAssets.oldSchoolMazeTexture_1, 0, 0, screenWidth, screenHeight);
+        game.SpriteDrawing.end();
         //draw buttons
         stage.act(delta);
         stage.draw();
@@ -80,12 +95,12 @@ public class TutorialScreen implements Screen {
         GlyphLayout layout = new GlyphLayout(font, text);
 
         //text location
-        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f;
-        float y = Gdx.graphics.getHeight() - 200;
+        float x = 100; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float y = 1500; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
 
-        font.setColor(Color.BLUE);
+        font.setColor(Color.RED);
         font.draw(game.SpriteDrawing, layout, x, y);
 
         game.SpriteDrawing.end();
@@ -113,7 +128,8 @@ public class TutorialScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        assets.dispose();
+        menuAssets.dispose();
         font.dispose();
+        backgroundAssets.dispose();
     }
 }
