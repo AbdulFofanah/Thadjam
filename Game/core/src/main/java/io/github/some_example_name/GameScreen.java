@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
 
         //Main camera
         camera = new OrthographicCamera();
-        viewport = new FitViewport(60,40, camera);
+        viewport = new FitViewport(65,40, camera);
 
         //Hud camera
         HUDcamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

@@ -24,8 +24,9 @@ public class MenuScreen implements Screen {
     private String[] titleText = {
         "!!!THADJAM's Escape the Maze Game!!!"
     };
-    float startX = (Gdx.graphics.getWidth() -600f) /2f;
-    float starty = (Gdx.graphics.getHeight() -600f) + 100;
+
+    float startX = (Gdx.graphics.getWidth() - 300f) / 2f;
+    float starty = (Gdx.graphics.getHeight() /2f + 150f);
     float gap = 400f;
 
 
@@ -37,9 +38,12 @@ public class MenuScreen implements Screen {
         menuAssets = new MenuAssets();
         backgroundAssets = new Assets();
 
+        float centerX = (Gdx.graphics.getWidth()) / 2f;
+        float startY = Gdx.graphics.getHeight() / 2f;
+
         // Create Start Button
         ImageButton startButton = new ImageButton(new TextureRegionDrawable(menuAssets.startButton));
-        startButton.setSize(600f, 300f);
+        startButton.setSize(300f, 150f);
         startButton.setPosition(startX, starty);
         startButton.getImage().setFillParent(true);
 
@@ -54,7 +58,7 @@ public class MenuScreen implements Screen {
 
         // Tutorial Button
         ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(menuAssets.tutorialButton));
-        tutorialButton.setSize(600f, 300f);
+        tutorialButton.setSize(300f, 150f);
         tutorialButton.setPosition(startX, starty - gap);
         tutorialButton.getImage().setFillParent(true);
 
@@ -68,8 +72,8 @@ public class MenuScreen implements Screen {
 
         // Create Settings Button
         ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(menuAssets.settingsButton));
-        settingsButton.setSize(600f, 300f);
-        settingsButton.setPosition(startX, starty - gap * 2);
+        settingsButton.setSize(300f, 150f);
+        settingsButton.setPosition(startX, starty - 200F);
         settingsButton.getImage().setFillParent(true);
 
         settingsButton.addListener(new ClickListener() {
@@ -82,7 +86,7 @@ public class MenuScreen implements Screen {
         stage.addActor(settingsButton);
 
         ImageButton exitButton = new ImageButton(new TextureRegionDrawable(menuAssets.exitButton));
-        exitButton.setSize(600f, 300f);
+        exitButton.setSize(300f, 150f);
         exitButton.setPosition(
             50,
             50);

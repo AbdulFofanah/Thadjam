@@ -38,11 +38,9 @@ public class TutorialScreen implements Screen {
     public TutorialScreen(Main game) {
         this.game = game;
 
-        // stage for UI
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        // camera + viewport for world/background
         camera = new OrthographicCamera();
         viewport = new FitViewport(1920, 1080, camera);
         viewport.apply();
@@ -54,9 +52,10 @@ public class TutorialScreen implements Screen {
         // tutorial title
         ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(menuAssets.tutorialButton));
         tutorialButton.setSize(300, 150); // smaller relative to viewport
-        tutorialButton.setPosition(viewport.getWorldWidth() / 2 - 150, viewport.getWorldHeight() );
+        tutorialButton.setPosition((viewport.getWorldWidth() / 2f - 500), (viewport.getWorldHeight() -500f));
         tutorialButton.getImage().setFillParent(true);
         stage.addActor(tutorialButton);
+        //
 
         // back button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
@@ -108,7 +107,7 @@ public class TutorialScreen implements Screen {
         // draw tutorial text
         GlyphLayout layout = new GlyphLayout(font, String.join("\n\n", tutorialText));
         float x = viewport.getWorldWidth() / 2 - layout.width / 2 ;
-        float y = viewport.getWorldHeight() - 200;
+        float y = viewport.getWorldHeight() - 250;
 
         game.SpriteDrawing.begin();
         font.setColor(Color.RED);

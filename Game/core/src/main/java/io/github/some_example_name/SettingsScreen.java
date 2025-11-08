@@ -11,24 +11,27 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class SettingsScreen implements Screen {
 
+    private final Main game;
+    private OrthographicCamera camera;
+    private FitViewport viewport;
     private Stage stage;
+
     private MenuAssets menuAssets;
     private Assets backgroundAssets;
-    private final Main game;
 
     public SettingsScreen(Main game) {
         this.game = game;
 
-        // stage for UI
-        stage = new Stage(new FitViewport(1920, 1080));
+        stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        // camera + viewport
-        OrthographicCamera camera = new OrthographicCamera();
-        FitViewport viewport = new FitViewport(1920, 1080, camera);
+
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(1920, 1080, camera);
         viewport.apply();
 
         // assets
@@ -37,8 +40,8 @@ public class SettingsScreen implements Screen {
 
         // settings title button
         ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(menuAssets.settingsButton));
-        settingsButton.setSize(400, 200);
-        settingsButton.setPosition(viewport.getWorldWidth()/2 - 200, viewport.getWorldHeight() - 250);
+        settingsButton.setSize(300, 150);
+        settingsButton.setPosition((viewport.getWorldWidth() / 2f - 500), (viewport.getWorldHeight() -500f));
         settingsButton.getImage().setFillParent(true);
         stage.addActor(settingsButton);
 
@@ -55,10 +58,10 @@ public class SettingsScreen implements Screen {
         });
         stage.addActor(backButton);
 
-        // rrow keys button
+        // arrow keys button
         ImageButton arrowButton = new ImageButton(new TextureRegionDrawable(menuAssets.arrowButton));
         arrowButton.setSize(400, 150);
-        arrowButton.setPosition(viewport.getWorldWidth()/4 - 200, viewport.getWorldHeight()/2);
+        arrowButton.setPosition((viewport.getWorldWidth() / 2f - 900), (viewport.getWorldHeight() -800f));
         arrowButton.getImage().setFillParent(true);
         arrowButton.addListener(new ClickListener() {
             @Override
@@ -72,7 +75,7 @@ public class SettingsScreen implements Screen {
         // WASD button
         ImageButton wasdButton = new ImageButton(new TextureRegionDrawable(menuAssets.wasdButton));
         wasdButton.setSize(400, 150);
-        wasdButton.setPosition(3*viewport.getWorldWidth()/4 - 200, viewport.getWorldHeight()/2);
+        wasdButton.setPosition((viewport.getWorldWidth() / 2f - 400), (viewport.getWorldHeight() -800f));
         wasdButton.getImage().setFillParent(true);
         wasdButton.addListener(new ClickListener() {
             @Override
