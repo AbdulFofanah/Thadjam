@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
         player.draw(game.SpriteDrawing);
         flu.draw(game.SpriteDrawing);
         coffee.draw(game.SpriteDrawing);
-        hidden_1.draw(game.SpriteDrawing);
+        //hidden_1.draw(game.SpriteDrawing);
         endSquare.draw(game.SpriteDrawing);
         game.SpriteDrawing.end();
 
