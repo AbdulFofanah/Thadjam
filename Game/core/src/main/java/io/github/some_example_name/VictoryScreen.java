@@ -22,14 +22,16 @@ public class VictoryScreen implements Screen {
     private Assets backgroundAssets;
     private final Main game;
     private BitmapFont font;
-    public float finalTime;
-    public float finalScore;
+    private float finalTime;
+    private float finalScore;
     private String[] wonText = {
         "!!!You won and graduated!!!"
     };
 
-    public VictoryScreen(Main game) {
+    public VictoryScreen(Main game, float finalScore,  float finalTime) {
         this.game = game;
+        this.finalTime = finalTime;
+        this.finalScore = finalScore;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -92,14 +94,30 @@ public class VictoryScreen implements Screen {
         String text = String.join("\n\n", wonText);
         GlyphLayout layout = new GlyphLayout(font, text);
 
+
         //text location
         float x = 1000; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
         float y = 1800; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
 
-        font.setColor(Color.RED);
+        font.setColor(Color.GREEN);
         font.draw(game.SpriteDrawing, layout, x, y);
+
+        game.SpriteDrawing.end();
+        String statsText = String.format("Final Time: " + (float) (finalTime)%.2f
+                         + "\nFinal Score: " + (float) (finalScore)%.2f
+                         + "\nWell Done!", finalTime, finalScore);
+        GlyphLayout statsLayout = new GlyphLayout(font, statsText);
+
+        //text location
+        float statsX = 800; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float statsY = 1600; //Gdx.graphics.getHeight() - 200;
+
+        game.SpriteDrawing.begin();
+
+        font.setColor(Color.GREEN);
+        font.draw(game.SpriteDrawing, statsLayout, statsX, statsY);
 
         game.SpriteDrawing.end();
     }

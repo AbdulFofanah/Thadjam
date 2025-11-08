@@ -37,12 +37,14 @@ public class GameScreen implements Screen {
     private EndEvent endSquare;
 
     private float time;
-    public float finalTime;
+    private float finalTime;
     public float finalScore;
     private BitmapFont font;
 
     public GameScreen(Main game) {
         this.game = game;
+        this.finalTime = finalTime;
+        this.finalScore = finalScore;
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -74,7 +76,7 @@ public class GameScreen implements Screen {
         hidden_1.setPosition(26, 26);
 
         endSquare = new EndEvent(gameAssests.graduationCapTexture);
-        endSquare.setPosition(1, 9);
+        endSquare.setPosition(39, 18);
 
         //back button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
@@ -128,8 +130,7 @@ public class GameScreen implements Screen {
             endSquare.ending_reached = true;
             finalTime = time;
             finalScore = (float) ((time) * 3.1415926);
-            time = 0;
-            game.setScreen(new VictoryScreen(game));
+            game.setScreen(new VictoryScreen(game, finalTime, finalScore));
         }
 
         //handling collision between player and the flu

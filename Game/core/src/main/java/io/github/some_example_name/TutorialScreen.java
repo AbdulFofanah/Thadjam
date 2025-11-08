@@ -26,7 +26,7 @@ public class TutorialScreen implements Screen {
         "Use the arrow keys or WASD to move around the maze.",
         "(Configure in settings)",
         "Avoid traps and get boosts",
-        "Reach the end (graduation cap) to finish. Good luck!"
+        "Reach the end by finding the graduation cap to finish. Good luck!"
     };
 
     public TutorialScreen(Main game) {
