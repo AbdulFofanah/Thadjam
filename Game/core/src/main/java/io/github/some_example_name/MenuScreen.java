@@ -24,6 +24,10 @@ public class MenuScreen implements Screen {
     private String[] titleText = {
         "!!!THADJAM's Escape the Maze Game!!!"
     };
+    float startX = (Gdx.graphics.getWidth() -600f) /2f;
+    float starty = (Gdx.graphics.getHeight() -600f) + 100;
+    float gap = 400f;
+
 
     public MenuScreen(Main game) {
         this.game = game;
@@ -36,9 +40,7 @@ public class MenuScreen implements Screen {
         // Create Start Button
         ImageButton startButton = new ImageButton(new TextureRegionDrawable(menuAssets.startButton));
         startButton.setSize(600f, 300f);
-        startButton.setPosition(
-            1200,
-            1100);
+        startButton.setPosition(startX, starty);
         startButton.getImage().setFillParent(true);
 
         startButton.addListener(new ClickListener() {
@@ -53,9 +55,7 @@ public class MenuScreen implements Screen {
         // Tutorial Button
         ImageButton tutorialButton = new ImageButton(new TextureRegionDrawable(menuAssets.tutorialButton));
         tutorialButton.setSize(600f, 300f);
-        tutorialButton.setPosition(
-            1200,
-            700);
+        tutorialButton.setPosition(startX, starty - gap);
         tutorialButton.getImage().setFillParent(true);
 
         tutorialButton.addListener(new ClickListener() {
@@ -69,9 +69,7 @@ public class MenuScreen implements Screen {
         // Create Settings Button
         ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(menuAssets.settingsButton));
         settingsButton.setSize(600f, 300f);
-        settingsButton.setPosition(
-            1200,
-            300);
+        settingsButton.setPosition(startX, starty - gap * 2);
         settingsButton.getImage().setFillParent(true);
 
         settingsButton.addListener(new ClickListener() {
@@ -136,7 +134,7 @@ public class MenuScreen implements Screen {
         GlyphLayout layout = new GlyphLayout(font, text);
 
         //text location
-        float x = 450; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f;
         float y = 1800; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
