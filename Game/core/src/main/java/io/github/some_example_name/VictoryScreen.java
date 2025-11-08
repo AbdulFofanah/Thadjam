@@ -111,7 +111,7 @@ public class VictoryScreen implements Screen {
         GlyphLayout statsLayout = new GlyphLayout(font, statsText);
 
         //text location
-        float statsX = 800; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float statsX = 1000; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
         float statsY = 1600; //Gdx.graphics.getHeight() - 200;
 
         game.SpriteDrawing.begin();
