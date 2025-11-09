@@ -40,6 +40,10 @@ public class TutorialScreen implements Screen {
         "Reach the end by finding the graduation cap to finish Good luck"
     };
 
+    /**
+     *
+     * @param game
+     */
     public TutorialScreen(Main game) {
         this.game = game;
 
@@ -87,6 +91,10 @@ public class TutorialScreen implements Screen {
         generator.dispose();
     }
 
+    /**
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
 
@@ -120,13 +128,21 @@ public class TutorialScreen implements Screen {
         game.SpriteDrawing.end();
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
     }
 
-
+    /**
+     *
+     *
+     */
     @Override
     public void dispose() {
         stage.dispose();        // Free UI resources

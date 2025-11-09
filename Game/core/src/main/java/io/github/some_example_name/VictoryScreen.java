@@ -32,6 +32,13 @@ public class VictoryScreen implements Screen {
         "!!!You won and graduated!!!"
     };
 
+    /**
+     *
+     * @param game
+     * @param finalScore
+     * @param finalTime
+     * @param finalCounter
+     */
     public VictoryScreen(Main game, float finalScore, float finalTime, int finalCounter) {
         this.game = game;
         this.finalTime = finalTime;
@@ -76,6 +83,10 @@ public class VictoryScreen implements Screen {
         // Runs when this screen is shown
     }
 
+    /**
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         // Clear the screen
@@ -131,6 +142,11 @@ public class VictoryScreen implements Screen {
         game.SpriteDrawing.end();
     }
 
+    /**
+     *
+     * @param screenWidth
+     * @param screenHeight
+     */
     @Override
     public void resize(int screenWidth, int screenHeight) {
         // Updates viewport when window size changes
@@ -141,6 +157,9 @@ public class VictoryScreen implements Screen {
     @Override public void resume() {}  // Called when game resumes
     @Override public void hide() {}    // Called when screen is hidden
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
         // Frees memory when this screen is closed

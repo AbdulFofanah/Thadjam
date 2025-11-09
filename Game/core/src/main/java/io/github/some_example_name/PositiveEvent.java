@@ -13,26 +13,44 @@ public class PositiveEvent {
     private Sprite sprite;              // Sprite for the item
     public boolean positive_collected = false; // true if player has collected it
 
-    // Constructor takes a texture to create the sprite
+
+    /**
+     *
+     * @param texture
+     */
     public PositiveEvent(Texture texture) {
+        // Constructor takes a texture to create the sprite
         this.sprite = new Sprite(texture);
         this.sprite.setSize(0.8f, 0.8f); // set sprite size
     }
 
-    // Get bounding box for collision detection
+    /**
+     *
+     * @return
+     */
     public Rectangle getBoundingRectangle() {
+        // Get bounding box for collision detection
         return sprite.getBoundingRectangle();
     }
 
-    // Draw the item only if it has not been collected
+    /**
+     *
+     * @param spriteDrawing
+     */
     public void draw(SpriteBatch spriteDrawing) {
+        // Draw the item only if it has not been collected
         if (!positive_collected) {
             sprite.draw(spriteDrawing);
         }
     }
 
-    // Set position of the item in the world
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void setPosition(float x, float y) {
+        // Set position of the item in the world
         sprite.setPosition(x, y);
     }
 }

@@ -31,6 +31,10 @@ public class TimeUpScreen implements Screen {
         "!!!You Failed!!!"
     };
 
+    /**
+     *
+     * @param game
+     */
     public TimeUpScreen(Main game) {
         this.game = game;
 
@@ -73,6 +77,10 @@ public class TimeUpScreen implements Screen {
         // Called when this screen is shown
     }
 
+    /**
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         // Clear the screen
@@ -105,6 +113,11 @@ public class TimeUpScreen implements Screen {
         game.SpriteDrawing.end();
     }
 
+    /**
+     *
+     * @param screenWidth
+     * @param screenHeight
+     */
     @Override
     public void resize(int screenWidth, int screenHeight) {
         stage.getViewport().update(screenWidth, screenHeight, true);
@@ -114,6 +127,9 @@ public class TimeUpScreen implements Screen {
     @Override public void resume() {}  // Called when game resumes
     @Override public void hide() {}    // Called when screen is hidden
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
         stage.dispose();             // Free UI elements

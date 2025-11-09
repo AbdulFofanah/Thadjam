@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import static com.badlogic.gdx.graphics.g2d.ParticleEmitter.SpawnShape.line;
 
 public class LevelMap {
+    /**
+     * Defining map
+     */
     private final String[] levelMap = {
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W.W.W.....W...................W.............W..............W",
@@ -56,6 +59,10 @@ public class LevelMap {
     private Texture wallTexture;
     private Texture floorTexture;
 
+    /**
+     *
+     * @param assets
+     */
     public LevelMap(Assets assets) {
         //the arrays will store all the wall and enemy pieces for this map
         wallRects = new Array<>();
@@ -72,6 +79,10 @@ public class LevelMap {
         }
     }
 
+    /**
+     *
+     * @param batch
+     */
     public void draw(SpriteBatch batch) {
         //draw floors and walls based on the map e.g. loops through the rows and columns of the map and draws the floors if there is a '.' and a wall if there is a '.'
         for (int row = 0; row < levelMap.length; row++) {
@@ -85,11 +96,22 @@ public class LevelMap {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Array<Rectangle> getWallRects() {
         return wallRects;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean isWalkable(int x, int y) {
+        // Check movement isnt blocked by wall
         if (y < 0 || y >= levelMap.length || x < 0 || x >= levelMap[0].length()) {
             return false; // outside the map
         }

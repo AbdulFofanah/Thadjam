@@ -9,6 +9,9 @@ public class MenuAssets {
     public Texture startButton, settingsButton, tutorialButton,
                    backButton, arrowButton, wasdButton, exitButton, homeButton;
 
+    /**
+     * Initialises all the menu button files to variables
+     */
     public MenuAssets() {
         startButton = new Texture("start_button.png");
         settingsButton = new Texture("settings_button.png");
@@ -21,6 +24,9 @@ public class MenuAssets {
         //background = new Texture("menuBackground.png");
     }
 
+    /**
+     * Removes all the textures from RAM
+     */
     public void dispose() {
         startButton.dispose();
         settingsButton.dispose();

@@ -13,26 +13,44 @@ public class NegativeEvent {
     private Sprite sprite;                 // Sprite for the negative item
     public boolean negative_collected = false; // true if player has hit it
 
-    // Constructor takes a texture to create the sprite
+
+    /**
+     * Constructor takes a texture to create the sprite
+     *
+     * @param texture
+     */
     public NegativeEvent(Texture texture) {
         this.sprite = new Sprite(texture);
         this.sprite.setSize(0.8f, 0.8f); // set sprite size
     }
 
-    // Get bounding box for collision detection
+    /**
+     * Get bounding box for collision detection
+     *
+     * @return
+     */
     public Rectangle getBoundingRectangle() {
         return sprite.getBoundingRectangle();
     }
 
-    // Draw the negative item only if it has not been collected
+    /**
+     * Draw the negative item only if it has not been collected
+     *
+     * @param spriteDrawing
+     */
     public void draw(SpriteBatch spriteDrawing) {
         if (!negative_collected) {
             sprite.draw(spriteDrawing);
         }
     }
 
-    // Set position of the item in the world
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void setPosition(float x, float y) {
+        // Set position of the item in the world
         sprite.setPosition(x, y);
     }
 }

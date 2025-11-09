@@ -28,6 +28,10 @@ public class MenuScreen implements Screen {
     float starty = (Gdx.graphics.getHeight() /2f + 50f); // starting Y position for first button
     float gap = 400f; // space between buttons
 
+    /**
+     *
+     * @param game
+     */
     public MenuScreen(Main game) {
         this.game = game;
 
@@ -105,6 +109,10 @@ public class MenuScreen implements Screen {
         // called when screen is shown
     }
 
+    /**
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK); // clear screen to black
@@ -135,14 +143,21 @@ public class MenuScreen implements Screen {
         game.SpriteDrawing.end();
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true); // update viewport
+        // update viewport
+        stage.getViewport().update(width, height, true);
     }
 
     @Override public void pause() {}   // Called when game is paused
     @Override public void resume() {}  // Called when game resumes
     @Override public void hide() {}    // Called when screen is hidden
+
 
     @Override
     public void dispose() {

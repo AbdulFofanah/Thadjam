@@ -26,6 +26,10 @@ public class SettingsScreen implements Screen {
     private MenuAssets menuAssets;         // Menu images and buttons
     private Assets backgroundAssets;       // Background images
 
+    /**
+     *
+     * @param game
+     */
     public SettingsScreen(Main game) {
         this.game = game;
 
@@ -89,6 +93,10 @@ public class SettingsScreen implements Screen {
         stage.addActor(wasdButton);
     }
 
+    /**
+     *
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         // Clear screen
@@ -108,6 +116,11 @@ public class SettingsScreen implements Screen {
         stage.draw();
     }
 
+    /**
+     *
+     * @param screenWidth
+     * @param screenHeight
+     */
     @Override
     public void resize(int screenWidth, int screenHeight) {
         viewport.update(screenWidth, screenHeight, true);
@@ -119,6 +132,9 @@ public class SettingsScreen implements Screen {
     @Override public void resume() {}  // Called when game resumes
     @Override public void hide() {}    // Called when screen is hidden
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
         stage.dispose();             // free UI elements
