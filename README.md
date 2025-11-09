@@ -4,7 +4,7 @@ Developers - Abdul Fofanah <dqm509@york.ac.uk>, Matthew Holleran <snk539@york.ac
 
 This is a university-themed maze game where you escape within 5 minutes!
 
-Quick Start:
+Quick Start- Open game folder, then quick start ffolder and run this with the .jar file inside:
 java -jar EscapeFromUni.jar
 
 Controls:
