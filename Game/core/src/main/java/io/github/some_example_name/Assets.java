@@ -11,7 +11,7 @@ public class Assets {
     public Texture wallTexture, floorTexture, characterTexture, idlecharacterTexture, enemyTexture_1,
                    benefitTexture_1, hiddenTexture_1, schoolTexture_1,
                    oldSchoolMazeTexture_1, classroomTexture_1, graduationCapTexture,
-                   graduationTexture;
+                   graduationTexture, failureTexture;
     public Music music;
     public Animation<TextureRegion> playerRunAnimation;
     public Animation<TextureRegion> playerIdleAnimation;
@@ -30,6 +30,7 @@ public class Assets {
         classroomTexture_1 = new Texture("classroom.png");
         graduationCapTexture = new Texture("graduation_cap.png");
         graduationTexture = new Texture("victory_graduation_screen.png");
+        failureTexture =  new Texture("fail_screen.png");
 
         playerRunAnimation = loadRunAnimation();
         playerIdleAnimation = loadIdleAnimation();
@@ -72,6 +73,7 @@ public class Assets {
         classroomTexture_1.dispose();
         graduationCapTexture.dispose();
         graduationTexture.dispose();
+        failureTexture.dispose();
 
         for (TextureRegion region : playerRunAnimation.getKeyFrames()) {
             region.getTexture().dispose();

@@ -133,6 +133,11 @@ public class GameScreen implements Screen {
         viewport.apply();
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
 
+        if (time >= 300f) { // 5 minutes (300 seconds)
+            game.setScreen(new TimeUpScreen(game));
+            return;
+        }
+
         //handling collision between player and the end tile
         if (!endSquare.ending_reached &&
             player.getBoundingRectangle().overlaps(endSquare.getBoundingRectangle())) {

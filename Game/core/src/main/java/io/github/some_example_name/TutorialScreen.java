@@ -30,7 +30,7 @@ public class TutorialScreen implements Screen {
     private String[] tutorialText = {
         "Welcome to THADJAM's Escape the Maze Game!",
         "Use the arrow keys or WASD to move around the maze.",
-        "(Configure in settings)",
+        "(Configure in settings) (You have 5 minutes - 300 seconds)",
         "Avoid traps and get boosts",
         "Reach the end by finding the graduation cap to finish. Good luck!"
     };
