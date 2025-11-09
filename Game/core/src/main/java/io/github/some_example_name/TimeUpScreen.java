@@ -14,16 +14,21 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * Screen shown when the player runs out of time
+ * Displays failure message and back button to menu
+ */
+public class TimeUpScreen implements Screen {
+    private Stage stage;                 // Handles UI elements like buttons
+    private MenuAssets menuAssets;       // Menu images and buttons
+    private Assets backgroundAssets;     // Background images
+    private final Main game;             // Main game reference
+    private BitmapFont font;             // Font for text
 
-public class TimeUpScreen implements Screen{
-    private Stage stage;
-    private MenuAssets menuAssets;
-    private Assets backgroundAssets;
-    private final Main game;
-    private BitmapFont font;
+    // Messages to show when time is up
     private String[] lostText = {
-    "!!The timer passed 5 minutes (300 Seconds)!!!",
-    "!!!You Failed!!!",
+        "!!The timer passed 5 minutes (300 Seconds)!!!",
+        "!!!You Failed!!!"
     };
 
     public TimeUpScreen(Main game) {
@@ -31,76 +36,73 @@ public class TimeUpScreen implements Screen{
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
+        // Load assets
         menuAssets = new MenuAssets();
         backgroundAssets = new Assets();
 
-        // Create Settings Button
+        // Home button to go back to menu
         ImageButton homeButton = new ImageButton(new TextureRegionDrawable(menuAssets.homeButton));
         homeButton.setSize(300f, 150f);
-        homeButton.setPosition(
-            50,
-            25);
+        homeButton.setPosition(50, 25);
         homeButton.getImage().setFillParent(true);
 
         homeButton.addListener(new ClickListener() {
-        @Override
+            @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new MenuScreen(game)); // Go back to menu
             }
-
         });
 
         stage.addActor(homeButton);
 
-        //font setup
+        // Font setup for failure message
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 128;
-        parameter.color = Color.WHITE;  // make font white so color can be changed at draw time
+        parameter.size = 128;              // Size for viewport
+        parameter.color = Color.WHITE;     // Make font white (color can change when drawing)
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
         font = generator.generateFont(parameter);
-        generator.dispose();
-
+        generator.dispose();               // Free font generator
     }
 
     @Override
     public void show() {
-
+        // Called when this screen is shown
     }
 
     @Override
     public void render(float delta) {
+        // Clear the screen
         ScreenUtils.clear(Color.BLACK);
+
         float screenWidth = stage.getViewport().getWorldWidth();
         float screenHeight = stage.getViewport().getWorldHeight();
 
+        // Draw background
         game.SpriteDrawing.setProjectionMatrix(stage.getCamera().combined);
         game.SpriteDrawing.begin();
         game.SpriteDrawing.draw(backgroundAssets.failureTexture, 0, 0, screenWidth, screenHeight);
         game.SpriteDrawing.end();
 
+        // Draw buttons
         stage.act(delta);
         stage.draw();
 
+        // Draw failure message
         font.getData().setScale(0.4f);
-
         String text = String.join("\n\n", lostText);
         GlyphLayout layout = new GlyphLayout(font, text);
 
-
-        //text location
-        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f; //Gdx.graphics.getWidth() / 2f - layout.width / 2f;
-        float y = 700; //Gdx.graphics.getHeight() - 200;
+        float x = Gdx.graphics.getWidth() / 2f - layout.width / 2f;
+        float y = 700;
 
         game.SpriteDrawing.begin();
-
         font.setColor(Color.RED);
         font.draw(game.SpriteDrawing, layout, x, y);
-
         game.SpriteDrawing.end();
-
     }
 
     @Override
@@ -108,25 +110,14 @@ public class TimeUpScreen implements Screen{
         stage.getViewport().update(screenWidth, screenHeight, true);
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
+    @Override public void pause() {}   // Called when game is paused
+    @Override public void resume() {}  // Called when game resumes
+    @Override public void hide() {}    // Called when screen is hidden
 
     @Override
     public void dispose() {
-        stage.dispose();
-        menuAssets.dispose();
-        backgroundAssets.dispose();
+        stage.dispose();             // Free UI elements
+        menuAssets.dispose();        // Free menu images
+        backgroundAssets.dispose();  // Free background images
     }
 }
