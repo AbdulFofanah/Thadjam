@@ -19,7 +19,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-
+/**
+ * Draws all of the assets into the gamescreen, handles some collisions for events, sets the cameras for each screen,
+ * sets up the buttons for each screen, handles user inputs, and the sets the sizing for some assets
+ */
 public class GameScreen implements Screen {
     private final Main game;
     private OrthographicCamera camera;
@@ -45,6 +48,10 @@ public class GameScreen implements Screen {
     public int finalCounter;
     private BitmapFont font;
 
+    /**
+     *
+     * @param game
+     */
     public GameScreen(Main game) {
         this.game = game;
         this.finalTime = finalTime;
@@ -118,10 +125,17 @@ public class GameScreen implements Screen {
         generator.dispose();
     }
 
+    /**
+     *
+     */
     @Override
     public void show() {
     }
 
+    /**
+     *
+     * @param frametime The time in seconds since the last render.
+     */
     @Override
     public void render(float frametime) {
 
@@ -219,7 +233,11 @@ public class GameScreen implements Screen {
         stage.draw();
     }
 
-
+    /**
+     *
+     * @param level
+     * @return
+     */
     private Vector2 getRandomLocation(LevelMap level) {
         int rows = viewport.getScreenWidth();
         int columns = viewport.getScreenHeight();
@@ -234,6 +252,10 @@ public class GameScreen implements Screen {
         }
     }
 
+    /**
+     *
+     * @param delta
+     */
     private void handleInput(float delta) {
         float moveX = 0;
         float moveY = 0;
@@ -263,24 +285,41 @@ public class GameScreen implements Screen {
         player.setMovement(moveX, moveY);
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     */
     public void resize(int width, int height){
         viewport.update(width, height, true);
         HUDcamera.setToOrtho(false, width, height);
         HUDcamera.update();
     }
 
+    /**
+     *
+     */
     @Override
     public void pause() {
     }
 
+    /**
+     *
+     */
     @Override
     public void resume() {
     }
 
+    /**
+     *
+     */
     @Override
     public void hide() {
     }
 
+    /**
+     *
+     */
     public void dispose(){
         gameAssests.dispose();
         menuAssets.dispose();
