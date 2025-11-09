@@ -24,7 +24,7 @@ public class Assets {
         floorTexture = new Texture("woodenfloor.png");
         enemyTexture_1 = new Texture("Cloud.png");
         benefitTexture_1 = new Texture("coffee1.png");
-        hiddenTexture_1 = new Texture("honeycomb_old.png");
+        hiddenTexture_1 = new Texture("giant_spore.png");
         schoolTexture_1 = new Texture("school.png");
         oldSchoolMazeTexture_1 = new Texture("old_school_maze.png");
         classroomTexture_1 = new Texture("classroom.png");
