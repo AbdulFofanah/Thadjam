@@ -18,7 +18,7 @@ public class Main extends Game {
 
     /**
      * Runs once when the game starts
-     * Sets up things the game will use
+     * Set's up things the game will use
      */
     @Override
     public void create() {
