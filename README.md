@@ -1,25 +1,32 @@
-Just a more detailed description of what i've done
+Escape from the Uni - THADJAM
+Project Contributors - Abdul Fofanah <dqm509@york.ac.uk>, Henry Bambrough <ttm541@york.ac.uk>, Toby Watchorn <cnr519@york.ac.uk>, Daneena Mohd Roydean <hrd544@york.ac.uk>, Arwen Minton <wvj515@york.ac.uk>, Jessica McKerill <sxf515@york.ac.uk>, Matthew Holleran <snk539@york.ac.uk>
+Developers - Abdul Fofanah <dqm509@york.ac.uk>, Matthew Holleran <snk539@york.ac.uk>, Toby Watchorn <cnr519@york.ac.uk>
 
-Main.java file:
-- Changed `Main` to `extend com.badlogic.gdx.Game` instead of implementing `ApplicationListener`.
-- Created and now manages shared resources (`SpriteBatch`, `BitmapFont`) accessible to screens.
-- Implemented `create()` to initialize shared resources and set the initial `GameScreen` using `setScreen(new GameScreen(this))`.
-- Simplified `render()` to delegate rendering to the active screen via `super.render()`.
-- Updated `dispose()` to correctly dispose of shared resources.
+This is a university-themed maze game where you escape within 5 minutes!
 
-GameScreen.java file:
-- Changed `GameScreen` to `implements com.badlogic.gdx.Screen`.
-- Added required `Screen` lifecycle methods (`show`, `render(float delta)`, `resize`, `pause`, `resume`, `hide`, `dispose`).
-- Modified constructor to accept the `Main game` instance.
-- Removed local `SpriteBatch` creation and disposal; now uses the shared `SpriteBatch` from the `Main` instance (`game.SpriteDrawing`).
-- Added `OrthographicCamera` and linked it to the `FitViewport`.
-- Updated `render(float delta)` to include camera/viewport updates and use the shared `SpriteBatch`.
-- Moved input polling logic from `Player` into a new `handleInput(float delta)` method within `GameScreen`.
+Quick Start:
+java -jar EscapeFromUni.jar
 
-Player.java file:
-- Removed direct input handling (`handleInput` method deleted).
-- Added `setMovement(float dx, float dy)` method for `GameScreen` to pass movement intentions.
-- Added `update(float delta, ...)` method to process movement intentions and call `tryMove`.
-- Made `tryMove` private and updated its signature to accept collision rectangles as parameters.
-- Added `getSpeed()`, `setPosition()`, and `getBoundingRectangle()` helper methods.
-- Removed initial position setting from the constructor.
+Controls:
+WASD or Arrow Keys to move
+
+Project Structure:
+Main.java - Game entry point
+GameScreen.java - Main gameplay
+Player.java - Player controller
+*Event.java - Game events (Negative/Positive/Hidden)
+*Screen.java - Menu/Tutorial/Settings/Victory screens
+
+Architecture:
+LibGDX framework
+Object-Oriented design
+Modular event system
+Screen-based navigation
+
+Features:
+5-minute timer with scoring
+Three event types (slow, boost, teleport)
+Real-time event tracking
+
+Licenses:
+LibGDX (Apache 2.0) + Original and OpenGameArt assets 
