@@ -137,20 +137,9 @@ public class VictoryScreen implements Screen {
         stage.getViewport().update(screenWidth, screenHeight, true);
     }
 
-    @Override
-    public void pause() {
-        // Called when the game is paused
-    }
-
-    @Override
-    public void resume() {
-        // Called when the game is resumed
-    }
-
-    @Override
-    public void hide() {
-        // Called when this screen is hidden
-    }
+    @Override public void pause() {}   // Called when game is paused
+    @Override public void resume() {}  // Called when game resumes
+    @Override public void hide() {}    // Called when screen is hidden
 
     @Override
     public void dispose() {
