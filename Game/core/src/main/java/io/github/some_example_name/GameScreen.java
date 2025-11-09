@@ -99,7 +99,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 time = 0f;
-                player.setPosition(1, 1);
+                player.setPosition(1, 2);
                 game.setScreen(new MenuScreen(game));
             }
 
