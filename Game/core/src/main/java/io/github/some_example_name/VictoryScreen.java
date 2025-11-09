@@ -24,14 +24,16 @@ public class VictoryScreen implements Screen {
     private BitmapFont font;
     private float finalTime;
     private float finalScore;
+    private int finalCounter;
     private String[] wonText = {
         "!!!You won and graduated!!!"
     };
 
-    public VictoryScreen(Main game, float finalScore,  float finalTime) {
+    public VictoryScreen(Main game, float finalScore,  float finalTime, int finalCounter) {
         this.game = game;
         this.finalTime = finalTime;
         this.finalScore = finalScore;
+        this.finalCounter = finalCounter;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -44,7 +46,7 @@ public class VictoryScreen implements Screen {
         homeButton.setSize(300f, 150f);
         homeButton.setPosition(
             50,
-            50);
+            25);
         homeButton.getImage().setFillParent(true);
 
         homeButton.addListener(new ClickListener() {
@@ -116,6 +118,20 @@ public class VictoryScreen implements Screen {
 
         font.setColor(Color.GREEN);
         font.draw(game.SpriteDrawing, statsLayout, statsX, statsY);
+
+        game.SpriteDrawing.end();
+
+        String countersText = String.format("You found " + (finalCounter) +
+                                            " out of 3 events!", finalCounter);
+        GlyphLayout countersLayout = new GlyphLayout(font, countersText);
+        float countersX = 50;
+        float countersY = 250;
+        font.getData().setScale(0.4f);
+
+        game.SpriteDrawing.begin();
+
+        font.setColor(Color.GREEN);
+        font.draw(game.SpriteDrawing, countersLayout, countersX, countersY);
 
         game.SpriteDrawing.end();
     }

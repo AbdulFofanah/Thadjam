@@ -39,12 +39,17 @@ public class GameScreen implements Screen {
     private float time;
     private float finalTime;
     public float finalScore;
+    private int negativeCount;
+    private int positiveCount;
+    private int hiddenCount;
+    public int finalCounter;
     private BitmapFont font;
 
     public GameScreen(Main game) {
         this.game = game;
         this.finalTime = finalTime;
         this.finalScore = finalScore;
+
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -68,15 +73,19 @@ public class GameScreen implements Screen {
         //Events
         flu = new NegativeEvent(gameAssests.enemyTexture_1);
         flu.setPosition(1, 10);
+        //lu.setPosition(1, 8);
 
         coffee = new PositiveEvent(gameAssests.benefitTexture_1);
         coffee.setPosition(17, 20);
+        //coffee.setPosition(1, 9);
 
         hidden_1 = new HiddenEvent(gameAssests.hiddenTexture_1);
         hidden_1.setPosition(26, 26);
+        //hidden_1.setPosition(1, 10);
 
         endSquare = new EndEvent(gameAssests.graduationCapTexture);
         endSquare.setPosition(39, 18);
+        //endSquare.setPosition(1, 11);
 
         //back button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
@@ -100,7 +109,7 @@ public class GameScreen implements Screen {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIALBD.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 128; //bigger number = higher res font when shrunk
+        parameter.size = 64; //bigger number = higher res font when shrunk
         parameter.color = Color.WHITE;
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
@@ -130,7 +139,7 @@ public class GameScreen implements Screen {
             endSquare.ending_reached = true;
             finalTime = time;
             finalScore = (float) ((3.1415926 / (time)) * 1500);
-            game.setScreen(new VictoryScreen(game, finalScore, finalTime));
+            game.setScreen(new VictoryScreen(game, finalScore, finalTime, finalCounter));
         }
 
         //handling collision between player and the flu
@@ -138,6 +147,8 @@ public class GameScreen implements Screen {
             player.getBoundingRectangle().overlaps(flu.getBoundingRectangle())) {
             flu.negative_collected = true;
             player.speed = 3f;
+            negativeCount++;
+            finalCounter++;
         }
 
         //handling collision between player and the coffee
@@ -145,6 +156,8 @@ public class GameScreen implements Screen {
             player.getBoundingRectangle().overlaps(coffee.getBoundingRectangle())) {
             coffee.positive_collected = true;
             player.speed = 9f;
+            positiveCount++;
+            finalCounter++;
         }
 
         //handling collision between player and the invisible event
@@ -153,6 +166,8 @@ public class GameScreen implements Screen {
             hidden_1.hidden_collected = true;
             Vector2 newPosition = getRandomLocation(level);
             player.setPosition(newPosition.x, newPosition.y);
+            hiddenCount++;
+            finalCounter++;
         }
 
         time += frametime;
@@ -181,12 +196,22 @@ public class GameScreen implements Screen {
         float y = Gdx.graphics.getHeight() - 20;
 
         font.draw(game.SpriteDrawing, layout, x, y);
+
+
+        String countersText = String.format("Negative Events: %d / 1\nPositive Events: %d / 1" +
+                                            "\nHidden Events: %d / 1 \nTotal events %d" ,
+                                            negativeCount, positiveCount, hiddenCount, finalCounter);
+        GlyphLayout countersLayout = new GlyphLayout(font, countersText);
+        float countersX = (Gdx.graphics.getWidth() / 2f - layout.width / 2f) + 250;
+        float countersY = Gdx.graphics.getHeight() - 20;
+        font.getData().setScale(0.4f);
+        font.draw(game.SpriteDrawing, countersLayout, countersX, countersY);
+
         game.SpriteDrawing.end();
 
         game.SpriteDrawing.setProjectionMatrix(camera.combined);
 
         stage.draw();
-
     }
 
 
