@@ -105,7 +105,7 @@ public class VictoryScreen implements Screen {
         font.draw(game.SpriteDrawing, layout, x, y);
 
         game.SpriteDrawing.end();
-        String statsText = String.format("Final Time: %.2f\nFinal Score: %.2f\nWell Done!", finalTime, finalScore);
+        String statsText = String.format("Final Time: %.2f Seconds\nFinal Score: %.2f Points\nWell Done!", finalTime, finalScore);
         GlyphLayout statsLayout = new GlyphLayout(font, statsText);
 
         //text location

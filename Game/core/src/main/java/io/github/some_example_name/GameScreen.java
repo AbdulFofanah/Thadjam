@@ -129,8 +129,8 @@ public class GameScreen implements Screen {
             player.getBoundingRectangle().overlaps(endSquare.getBoundingRectangle())) {
             endSquare.ending_reached = true;
             finalTime = time;
-            finalScore = (float) ((time) * 3.1415926);
-            game.setScreen(new VictoryScreen(game, finalTime, finalScore));
+            finalScore = (float) ((3.1415926 / (time)) * 1500);
+            game.setScreen(new VictoryScreen(game, finalScore, finalTime));
         }
 
         //handling collision between player and the flu
