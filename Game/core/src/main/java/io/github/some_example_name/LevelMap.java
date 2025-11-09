@@ -119,12 +119,18 @@ public class LevelMap {
         return levelMap[levelMap.length - 1 - y].charAt(x) != 'W';
     }
 
-    // gets the number of rows
+    /**
+     * gets the number of rows
+     * @return
+     */
     public int getMapRows() {
         return levelMap.length;
     }
 
-    // gets the number of columns
+    /**
+     * gets teh number of columns
+     * @return
+     */
     public int getMapColumns() {
         return levelMap[0].length();
     }
