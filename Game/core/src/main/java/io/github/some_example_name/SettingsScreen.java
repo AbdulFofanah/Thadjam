@@ -18,13 +18,12 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 public class SettingsScreen implements Screen {
 
-    private final Main game;              // Reference to main game
-    private OrthographicCamera camera;     // Camera for viewport
-    private FitViewport viewport;          // Scale screen to fit
-    private Stage stage;                   // Handles buttons and UI
-
-    private MenuAssets menuAssets;         // Menu images and buttons
-    private Assets backgroundAssets;       // Background images
+    private final Main game;
+    private OrthographicCamera camera;
+    private FitViewport viewport;
+    private Stage stage;
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
 
     /**
      *

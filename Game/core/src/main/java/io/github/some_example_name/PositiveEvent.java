@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
  * Player can pick it up and it disappears
  */
 public class PositiveEvent {
-    private Sprite sprite;              // Sprite for the item
-    public boolean positive_collected = false; // true if player has collected it
+    private Sprite sprite;
+    public boolean positive_collected = false;
 
 
     /**

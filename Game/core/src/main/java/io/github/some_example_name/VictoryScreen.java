@@ -20,14 +20,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 public class VictoryScreen implements Screen {
 
-    private Stage stage;                 // Handles UI elements like buttons
-    private MenuAssets menuAssets;       // Stores menu images and textures
-    private Assets backgroundAssets;     // Stores background image
-    private final Main game;             // Main game reference
-    private BitmapFont font;             // Font used to draw text
-    private float finalTime;             // Stores the final time
-    private float finalScore;            // Stores the final score
-    private int finalCounter;            // Stores how many events were found
+    private Stage stage;
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
+    private final Main game;
+    private BitmapFont font;
+    private float finalTime;
+    private float finalScore;
+    private int finalCounter;
     private String[] wonText = {
         "!!!You won and graduated!!!"
     };

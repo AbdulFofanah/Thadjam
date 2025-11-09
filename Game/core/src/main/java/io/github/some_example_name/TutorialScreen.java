@@ -22,14 +22,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 public class TutorialScreen implements Screen {
 
-    private final Main game;               // Main game reference
-    private OrthographicCamera camera;      // Camera for the viewport
-    private FitViewport viewport;           // Viewport to scale the screen
-    private Stage stage;                    // Handles buttons and UI
+    private final Main game;
+    private OrthographicCamera camera;
+    private FitViewport viewport;
+    private Stage stage;
 
-    private MenuAssets menuAssets;          // Menu images and buttons
-    private Assets backgroundAssets;        // Background images
-    private BitmapFont font;                // Font for text
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
+    private BitmapFont font;
 
     // Tutorial messages
     private String[] tutorialText = {

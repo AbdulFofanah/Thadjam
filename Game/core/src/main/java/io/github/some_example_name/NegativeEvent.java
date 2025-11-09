@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
  * Player can collide with it and it disappears
  */
 public class NegativeEvent {
-    private Sprite sprite;                 // Sprite for the negative item
-    public boolean negative_collected = false; // true if player has hit it
+    private Sprite sprite;
+    public boolean negative_collected = false;
 
 
     /**

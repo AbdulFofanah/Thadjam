@@ -16,11 +16,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MenuScreen implements Screen {
 
-    private Stage stage; // holds buttons and input
-    private MenuAssets menuAssets; // buttons and icons
-    private Assets backgroundAssets; // background images
-    private BitmapFont font; // font for title
-    private final Main game; // reference to main game
+    private Stage stage;
+    private MenuAssets menuAssets;
+    private Assets backgroundAssets;
+    private BitmapFont font;
+    private final Main game;
     private String[] titleText = { // menu title text
         "!!!THADJAM's Escape the Maze Game!!!"
     };
@@ -36,11 +36,11 @@ public class MenuScreen implements Screen {
     public MenuScreen(Main game) {
         this.game = game;
 
-        stage = new Stage(new ScreenViewport()); // make a stage with viewport
-        Gdx.input.setInputProcessor(stage); // stage handles input
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
 
-        menuAssets = new MenuAssets(); // load buttons and icons
-        backgroundAssets = new Assets(); // load background images
+        menuAssets = new MenuAssets();
+        backgroundAssets = new Assets();
 
         // Start Button
         ImageButton startButton = new ImageButton(new TextureRegionDrawable(menuAssets.startButton));

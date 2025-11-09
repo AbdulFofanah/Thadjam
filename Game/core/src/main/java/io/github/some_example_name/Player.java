@@ -15,17 +15,16 @@ import com.badlogic.gdx.math.Rectangle;
  * Player class handles movement, animation and collision
  */
 public class Player {
-    private Sprite sprite;                      // Sprite to represent player
-    public float speed = 8f;                     // Movement speed
-    private float moveX = 0f;                    // Horizontal movement for this frame
-    private float moveY = 0f;                    // Vertical movement for this frame
+    private Sprite sprite;
+    public float speed = 8f;
+    private float moveX = 0f;
+    private float moveY = 0f;
 
     private Animation<TextureRegion> playerRunAnimation;  // Animation when player is running
     private Animation<TextureRegion> playerIdleAnimation; // Animation when player is idle
-    private float stateTime = 0f;                         // Timer for animation frames
-    private boolean useAnimation = false;                // Whether to use animations
-    private boolean moving = false;                      // Is player currently moving
-
+    private float stateTime = 0f;
+    private boolean useAnimation = false;
+    private boolean moving = false;
 
     /**
      * Constructor for simple player with single texture
