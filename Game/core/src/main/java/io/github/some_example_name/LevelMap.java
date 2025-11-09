@@ -116,6 +116,16 @@ public class LevelMap {
             return false; // outside the map
         }
         // Check if the tile is not a wall
-        return levelMap[y].charAt(x) != 'W';
+        return levelMap[levelMap.length - 1 - y].charAt(x) != 'W';
+    }
+
+    // gets the number of rows
+    public int getMapRows() {
+        return levelMap.length;
+    }
+
+    // gets the number of columns
+    public int getMapColumns() {
+        return levelMap[0].length();
     }
 }
