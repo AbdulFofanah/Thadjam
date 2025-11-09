@@ -1,8 +1,7 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.Gdx;
+
 
 public class MenuAssets {
 
