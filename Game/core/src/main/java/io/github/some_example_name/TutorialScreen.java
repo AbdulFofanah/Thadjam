@@ -126,10 +126,6 @@ public class TutorialScreen implements Screen {
         stage.getViewport().update(width, height, true);
     }
 
-    @Override public void show() {}   // Called when this screen is shown
-    @Override public void pause() {}  // Called when game is paused
-    @Override public void resume() {} // Called when game is resumed
-    @Override public void hide() {}   // Called when this screen is hidden
 
     @Override
     public void dispose() {
