@@ -2,11 +2,13 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Contains all the assets that are used throughout the program
+ */
 public class Assets {
     public Texture wallTexture, floorTexture, characterTexture, idlecharacterTexture, enemyTexture_1,
                    benefitTexture_1, hiddenTexture_1, schoolTexture_1,
@@ -16,7 +18,10 @@ public class Assets {
     public Animation<TextureRegion> playerRunAnimation;
     public Animation<TextureRegion> playerIdleAnimation;
 
-
+    /**
+     * Initialises all the files to variables
+     * Creates variables for the varying animations for the character
+     */
     public Assets() {
         wallTexture = new Texture("bricks.png");
         characterTexture = new Texture("frame-1.png");
@@ -37,6 +42,11 @@ public class Assets {
 
     }
 
+    /**
+     * Creates an array that contains all the files for a running animation and initialises all of them to textures for use
+     *
+     * @return the animation loop
+     *  */
     private Animation<TextureRegion> loadRunAnimation() {
         Array<TextureRegion> frames = new Array<>();
 
@@ -49,6 +59,11 @@ public class Assets {
         return new Animation<TextureRegion>(0.1f, frames, Animation.PlayMode.LOOP);
     }
 
+    /**
+     * Creates an array that contains all the files for an idling animation and initialises all of them to textures for use
+     *
+     * @return the animation loop
+     *  */
     private Animation<TextureRegion> loadIdleAnimation(){
         Array<TextureRegion> frames = new Array<>();
 
@@ -61,6 +76,10 @@ public class Assets {
         return new Animation<TextureRegion>(0.1f, frames, Animation.PlayMode.LOOP);
     }
 
+    /**
+     * Removes all the textures from RAM
+     * Loops over the frames for the animated textures and removes them
+     *  */
     public void dispose() {
         wallTexture.dispose();
         characterTexture.dispose();
