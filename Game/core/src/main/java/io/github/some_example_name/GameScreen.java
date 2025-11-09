@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
     private FitViewport viewport;
     private OrthographicCamera HUDcamera;
 
-    private Assets gameAssests;
+    private Assets gameAssets;
     private MenuAssets menuAssets;
     private LevelMap level;
     private Player player;
@@ -70,27 +70,27 @@ public class GameScreen implements Screen {
         HUDcamera.setToOrtho(false); // y=0 bottom, y=height top
         HUDcamera.update();
 
-        //Assets
+        //gameAssets/Assets
         menuAssets = new MenuAssets();
-        gameAssests = new Assets();
-        level = new LevelMap(gameAssests);
-        player = new Player(gameAssests.playerRunAnimation, gameAssests.playerIdleAnimation, gameAssests.characterTexture);
+        gameAssets = new Assets();
+        level = new LevelMap(gameAssets);
+        player = new Player(gameAssets.playerRunAnimation, gameAssets.playerIdleAnimation, gameAssets.characterTexture);
         player.setPosition(1,1);
 
         //Events
-        flu = new NegativeEvent(gameAssests.enemyTexture_1);
+        flu = new NegativeEvent(gameAssets.enemyTexture_1);
         flu.setPosition(1, 10);
         //lu.setPosition(1, 8);
 
-        coffee = new PositiveEvent(gameAssests.benefitTexture_1);
+        coffee = new PositiveEvent(gameAssets.benefitTexture_1);
         coffee.setPosition(17, 20);
         //coffee.setPosition(1, 9);
 
-        hidden_1 = new HiddenEvent(gameAssests.hiddenTexture_1);
+        hidden_1 = new HiddenEvent(gameAssets.hiddenTexture_1);
         hidden_1.setPosition(26, 26);
         //hidden_1.setPosition(1, 10);
 
-        endSquare = new EndEvent(gameAssests.graduationCapTexture);
+        endSquare = new EndEvent(gameAssets.graduationCapTexture);
         endSquare.setPosition(39, 18);
         //endSquare.setPosition(1, 11);
 
@@ -321,7 +321,7 @@ public class GameScreen implements Screen {
      *
      */
     public void dispose(){
-        gameAssests.dispose();
+        gameAssets.dispose();
         menuAssets.dispose();
         font.dispose(); // dispose font
     }
