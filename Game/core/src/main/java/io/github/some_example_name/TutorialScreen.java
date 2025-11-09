@@ -91,6 +91,11 @@ public class TutorialScreen implements Screen {
         generator.dispose();
     }
 
+    @Override
+    public void show() {
+
+    }
+
     /**
      *
      * @param delta The time in seconds since the last render.
@@ -137,6 +142,21 @@ public class TutorialScreen implements Screen {
     public void resize(int width, int height) {
         viewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     /**

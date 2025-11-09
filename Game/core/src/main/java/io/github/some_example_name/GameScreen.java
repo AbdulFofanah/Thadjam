@@ -79,20 +79,20 @@ public class GameScreen implements Screen {
 
         //Events
         flu = new NegativeEvent(gameAssets.enemyTexture_1);
-        flu.setPosition(1, 10);
-        //lu.setPosition(1, 8);
+        //flu.setPosition(1, 10);
+        flu.setPosition(1, 8);
 
         coffee = new PositiveEvent(gameAssets.benefitTexture_1);
-        coffee.setPosition(17, 20);
-        //coffee.setPosition(1, 9);
+        //coffee.setPosition(17, 20);
+        coffee.setPosition(1, 9);
 
         hidden_1 = new HiddenEvent(gameAssets.hiddenTexture_1);
-        hidden_1.setPosition(26, 26);
-        //hidden_1.setPosition(1, 10);
+        //hidden_1.setPosition(26, 26);
+        hidden_1.setPosition(1, 10);
 
         endSquare = new EndEvent(gameAssets.graduationCapTexture);
-        endSquare.setPosition(39, 18);
-        //endSquare.setPosition(1, 11);
+        //endSquare.setPosition(39, 18);
+        endSquare.setPosition(1, 11);
 
         //back button
         ImageButton backButton = new ImageButton(new TextureRegionDrawable(menuAssets.backButton));
